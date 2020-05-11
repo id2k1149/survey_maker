@@ -41,7 +41,7 @@ class User(AbstractUser):
     """User model."""
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    avatar = models.ImageField(blank=True, upload_to='avatars')
+    avatar = models.ImageField(blank=True, upload_to='user_avatars')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

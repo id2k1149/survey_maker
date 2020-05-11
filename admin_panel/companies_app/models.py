@@ -6,7 +6,7 @@ from users_app.models import User
 # Create your models here.
 class Company(models.Model):
     name = models.CharField(max_length=64, unique=True)
-    logo = models.ImageField(null=True, blank=True, upload_to='company')
+    logo = models.ImageField(null=True, blank=True, upload_to='company_logo')
     employees = models.ManyToManyField(User, blank=True)
 
     class Meta:
