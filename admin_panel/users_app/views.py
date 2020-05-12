@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
 from .forms import RegistrationForm
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import User
 
 
@@ -27,6 +27,17 @@ class RegisterUserCreateView(CreateView):
 class UsersListView(ListView):
     model = User
     template_name = 'users_app/users.html'
+
+    def get_context_data(self, *args, **kwargs):
+        """
+
+        :param object_list:
+        :param kwargs:
+        :return:
+        """
+        context = super().get_context_data(*args, **kwargs)
+        context['name'] = 'Пользователи'
+        return context
 
 
 # CreateView
@@ -52,3 +63,18 @@ class UserDetailView(UserPassesTestMixin, DetailView):
     def test_func(self):
         return self.request.user.is_superuser
 
+
+# UpdateView
+class UserUpdateView(UpdateView):
+    fields = ('email', 'first_name', 'last_name', 'avatar')
+
+    model = User
+    success_url = reverse_lazy('users:users')
+    template_name = 'users_app/profile.html'
+
+
+# DeleteView
+class UserDelete(DeleteView):
+    model = User
+    success_url = reverse_lazy('users:users')
+    template_name = 'users_app/confirm_delete.html'

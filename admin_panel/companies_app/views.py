@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from .forms import ContactForm
-from django.views.generic import ListView, DetailView, CreateView
-from .models import Structure, Company
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Company
 
 
 # Create your views here.
@@ -75,3 +75,19 @@ class CompanyCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+
+# UpdateView
+class CompanyUpdateView(UpdateView):
+    fields = '__all__'
+
+    model = Company
+    success_url = reverse_lazy('companies:companies')
+    template_name = 'companies_app/update.html'
+
+
+class CompanyDelete(DeleteView):
+    model = Company
+    success_url = reverse_lazy('companies:companies')
+    template_name = 'companies_app/confirm_delete.html'
+

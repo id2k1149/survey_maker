@@ -5,9 +5,9 @@ from users_app.models import User
 
 # Create your models here.
 class Company(models.Model):
-    name = models.CharField(max_length=64, unique=True)
-    logo = models.ImageField(null=True, blank=True, upload_to='company_logo')
-    employees = models.ManyToManyField(User, blank=True)
+    name = models.CharField(max_length=64, unique=True, verbose_name='Название')
+    logo = models.ImageField(null=True, blank=True, upload_to='company_logo', verbose_name='Логотип')
+    employees = models.ManyToManyField(User, blank=True, verbose_name='Сотрудники')
 
     class Meta:
         verbose_name = 'Компания'
@@ -19,7 +19,7 @@ class Company(models.Model):
 
 class Structure(MPTTModel):
     company = models.ManyToManyField(Company)
-    department = models.CharField(max_length=64, unique=True)
+    department = models.CharField(max_length=64, unique=True, verbose_name='Подразделение')
     head_of_department = models.CharField(max_length=64, null=True, blank=True)
     code = models.PositiveIntegerField(null=True, blank=True)
     workers = models.PositiveIntegerField(null=True, blank=True)

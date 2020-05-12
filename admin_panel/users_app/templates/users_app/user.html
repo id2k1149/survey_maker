@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Пользователь {% endblock %}
+{% block title %} {{object.email}} {% endblock %}
 
 {% block content %}
     <!-- Content Wrapper -->
@@ -45,18 +45,15 @@
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{% url 'users:profile' pk=user.id %}">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </a>
                     <a class="dropdown-item" href="#">
                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Settings
+                        Редактировать Компании
                     </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Activity Log
-                    </a>
+
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{% url 'users:logout' %}">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -75,16 +72,22 @@
         {% if user.avatar %}
         <img src="{{user.avatar.url}}" width="40">
         {% else %}
-        <i class="fas fa-sitemap fa-2x text-gray-300"> </i>
+        <i class="fas fa-user fa-2x text-gray-300"> </i>
         {% endif %}
     </div>
     <div class="col">
         {{ user.email }}{{ user.first_name }}{{ user.last_name }}
+        <a href="{% url 'users:profile' pk=object.id %}"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-sm text-white-50"></i>
+            Profile</a>
+        <a href="{% url 'users:confirm_delete' pk=object.id %}"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-sm text-white-50"></i>
+            Delete</a>
     </div>
-
-
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h3 class="h3 mb-0 text-gray-800">Компании</h3>
+            <h3 class="h3 mb-0 text-gray-800">Компании:</h3>
     </div>
 
 
@@ -94,6 +97,9 @@
 
          </div><br><hr>
          {% endfor  %}
+
+
+
 
 
 </div>

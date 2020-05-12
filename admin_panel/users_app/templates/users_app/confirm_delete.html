@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %} Пользователи {% endblock %}
+{% load static %}
+{% block title %} {{object.email}}  {% endblock %}
 
 {% block content %}
     <!-- Content Wrapper -->
@@ -70,42 +71,30 @@
     </nav>
     <!-- End of Topbar -->
 <!-- Begin Page Content -->
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <i class="fa fa-sitemap"> Управление</i>
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0" style="color:black;">{{name}}</h1>
-        <a href="{% url 'users:create' %}"
-           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-sm text-white-50"></i>
-            ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ</a>
-    </div>
-    <!-- Content Row -->
+<div class="card-body p-0">
+    <!-- Nested Row within Card Body -->
+    <div class="row align-items-center">
+        <div class="col-lg-6">
+            <div class="p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Удаление профиля</h1>
+                </div>
+                <form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+                    <button type="submit" class="btn btn-danger">Подтведить</button>
 
-        {% for item in object_list %}
-        <!-- Users Cards  -->
-
-        <div class="row col-md-12">
-
-
-            <div class="col">
-                {% if item.avatar %}
-                <img src="{{item.avatar.url}}" width="40">
-                {% else %}
-                <i class="fas fa-user fa-2x text-gray-300"> </i>
-                {% endif %}
-            </div>
-            <div class="col">
-                <a href="{% url 'users:user' pk=item.pk %}">
-                {{ item.email }}{{ item.first_name }}{{ item.last_name }}
-                     </a>
+</form>
             </div>
         </div>
-
+        <div class="col-lg-6 d-none d-lg-block ">
+            <div class="text-center">
+                <img src="{% static 'bootstrap/img/laptop.png' %}" width=80%>
+            </div>
+        </div>
+    </div>
     <hr>
-        {% endfor %}
 
-</div>
-<!-- /.container-fluid -->
+    <br>
+
 {% endblock %}
 

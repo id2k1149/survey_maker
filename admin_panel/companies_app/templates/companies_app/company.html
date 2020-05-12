@@ -91,6 +91,14 @@
         <i class="fa fa-sitemap"> Карточка компании</i>
         <i class="fa fa-ellipsis-v"></i>
         {% endif %}
+        <a href="{% url 'companies:update' pk=object.id  %}"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-sm text-white-50"></i>
+            редактировать КОМПАНИЮ</a>
+        <a href="{% url 'companies:confirm_delete' pk=object.id  %}"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-sm text-white-50"></i>
+            удалить КОМПАНИЮ</a>
 
     </div>
     <!--          <i class="fa fa-sitemap"> Компания</i>-->
