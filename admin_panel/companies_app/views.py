@@ -47,12 +47,6 @@ class CompaniesListView(ListView):
     model = Company
     template_name = 'companies_app/companies.html'
 
-    def employees_in_company(self):
-        employees_list = self.employees.all()
-        total_staff = len(employees_list)
-        print(total_staff)
-        return total_staff
-
 
 # DetailView
 class CompanyDetailView(UserPassesTestMixin, DetailView):

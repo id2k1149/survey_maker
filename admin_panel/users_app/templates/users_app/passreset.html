@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %} {{object.email}} {% endblock %}
+ {% load static %}
+{% block title %} login {% endblock %}
 
 {% block content %}
     <!-- Content Wrapper -->
@@ -45,19 +46,18 @@
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="{% url 'users:profile' pk=user.id %}">
+                    <a class="dropdown-item" href="#">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </a>
-                    <a class="dropdown-item" href="{% url 'users:passchange' pk=object.id %}">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Сменить пароль
-                    </a>
                     <a class="dropdown-item" href="#">
                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Редактировать Компании
+                        Settings
                     </a>
-
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Activity Log
+                    </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{% url 'users:logout' %}">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -70,42 +70,40 @@
 
     </nav>
     <!-- End of Topbar -->
-<!-- Begin Page Content -->
-<div class="container-fluid">
-    <div class="col">
-        {% if user.avatar %}
-        <img src="{{user.avatar.url}}" width="40">
-        {% else %}
-        <i class="fas fa-user fa-2x text-gray-300"> </i>
-        {% endif %}
+<div class="card-body p-0">
+    <!-- Nested Row within Card Body -->
+    <div class="row">
+
+        <div class="col-lg-6">
+            <div class="p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
+                </div>
+                <div class="row justify-content-md-center">
+                    <form class="col-lg-6" method="post">
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary btn-user btn-block">Отправить</button>
+                </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block">
+                <div class="text-center">
+                   <img src="{% static 'bootstrap/img/laptop.png' %}" width=80%>
+                </div>
+        </div>
     </div>
-    <div class="col">
-        {{ user.email }}{{ user.first_name }}{{ user.last_name }}
-        <a href="{% url 'users:profile' pk=object.id %}"
-           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-sm text-white-50"></i>
-            Profile</a>
-        <a href="{% url 'users:confirm_delete' pk=object.id %}"
-           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-sm text-white-50"></i>
-            Delete</a>
-    </div>
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h3 class="h3 mb-0 text-gray-800">Компании:</h3>
-    </div>
+    <hr>
+            <div class="text-center">
+                <a class="small" href="forgot-password.html">Забыли пароль?</a>
+            </div>
+            <div class="text-center">
+                <a class="small" href="{% url 'users:register' %}">Зарегистрироваться!</a>
+            </div>
+    <hr>
+    {% endblock %}
 
-
-         {% for item in user.company_set.all %}
-         <div class="row">
-            <h3 class="h3 mb-0 text-gray-800">{{ item.name }}</h3>
-
-         </div><br><hr>
-         {% endfor  %}
-
-
-
-
-
-</div>
-{% endblock %}
 

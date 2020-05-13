@@ -99,7 +99,7 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       {% if user.is_authenticated %}
-              {% else %}
+      {% else %}
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
@@ -113,9 +113,6 @@
                 <a class="collapse-item" href="{% url 'users:login' %}">Вход</a>
                 <a class="collapse-item" href="{% url 'users:register' %}">Регистрация</a>
                 <a class="collapse-item" href="forgot-password.html">Забыли пароль?</a>
-
-
-
 
           </div>
         </div>

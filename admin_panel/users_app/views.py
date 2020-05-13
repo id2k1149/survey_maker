@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView
 from .forms import RegistrationForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import User
@@ -78,3 +78,17 @@ class UserDelete(DeleteView):
     model = User
     success_url = reverse_lazy('users:users')
     template_name = 'users_app/confirm_delete.html'
+
+
+# ChangePass
+class UserPasswordChangeView(PasswordChangeView):
+    model = User
+    success_url = reverse_lazy('users:users')
+    template_name = 'users_app/passchange.html'
+
+
+# PasswordResetView
+class UserPasswordResetView(PasswordResetView):
+    model = User
+    success_url = reverse_lazy('users:users')
+    template_name = 'users_app/passreset.html'

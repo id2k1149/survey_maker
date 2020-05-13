@@ -81,6 +81,13 @@
                 </div>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <div class="col">
+        {% if object.avatar %}
+        <img src="{{object.avatar.url}}" width="40">
+        {% else %}
+        <i class="fas fa-user fa-2x text-gray-300"> </i>
+        {% endif %}
+    </div>
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary btn-user btn-block">Отправить</button>
                 </form>
