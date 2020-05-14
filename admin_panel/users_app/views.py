@@ -1,5 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView
 from .forms import RegistrationForm
@@ -24,7 +24,7 @@ class RegisterUserCreateView(CreateView):
 
 
 # ListView
-class UsersListView(ListView):
+class UsersListView(LoginRequiredMixin, ListView):
     model = User
     template_name = 'users_app/users.html'
 
@@ -36,7 +36,7 @@ class UsersListView(ListView):
         :return:
         """
         context = super().get_context_data(*args, **kwargs)
-        context['name'] = 'Пользователи'
+        context['user_name'] = 'Пользователи'
         return context
 
 
@@ -56,7 +56,7 @@ class UserCreateView(LoginRequiredMixin, CreateView):
 
 
 # DetailView
-class UserDetailView(UserPassesTestMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = User
     template_name = 'users_app/user.html'
 
@@ -65,7 +65,7 @@ class UserDetailView(UserPassesTestMixin, DetailView):
 
 
 # UpdateView
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     fields = ('email', 'first_name', 'last_name', 'avatar')
 
     model = User
@@ -74,21 +74,21 @@ class UserUpdateView(UpdateView):
 
 
 # DeleteView
-class UserDelete(DeleteView):
+class UserDelete(LoginRequiredMixin, DeleteView):
     model = User
     success_url = reverse_lazy('users:users')
     template_name = 'users_app/confirm_delete.html'
 
 
 # ChangePass
-class UserPasswordChangeView(PasswordChangeView):
+class UserPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     model = User
     success_url = reverse_lazy('users:users')
     template_name = 'users_app/passchange.html'
 
 
 # PasswordResetView
-class UserPasswordResetView(PasswordResetView):
+class UserPasswordResetView(LoginRequiredMixin, PasswordResetView):
     model = User
     success_url = reverse_lazy('users:users')
     template_name = 'users_app/passreset.html'

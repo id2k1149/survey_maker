@@ -1,6 +1,7 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from companies_app.models import Company
+from users_app.models import User
 
 
 # Create your models here.
@@ -97,3 +98,9 @@ class Survey(MPTTModel):
 
     def __str__(self):
         return self.name
+
+
+class ReturnCode(models.Model):
+    return_code = models.CharField(max_length=8)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)

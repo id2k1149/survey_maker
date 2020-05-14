@@ -43,13 +43,13 @@ def landing_view(request):
 
 
 # ListView
-class CompaniesListView(ListView):
+class CompaniesListView(LoginRequiredMixin, ListView):
     model = Company
     template_name = 'companies_app/companies.html'
 
 
 # DetailView
-class CompanyDetailView(UserPassesTestMixin, DetailView):
+class CompanyDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Company
     template_name = 'companies_app/company.html'
 
@@ -72,7 +72,7 @@ class CompanyCreateView(LoginRequiredMixin, CreateView):
 
 
 # UpdateView
-class CompanyUpdateView(UpdateView):
+class CompanyUpdateView(LoginRequiredMixin, UpdateView):
     fields = '__all__'
 
     model = Company
@@ -80,7 +80,7 @@ class CompanyUpdateView(UpdateView):
     template_name = 'companies_app/update.html'
 
 
-class CompanyDelete(DeleteView):
+class CompanyDelete(LoginRequiredMixin, DeleteView):
     model = Company
     success_url = reverse_lazy('companies:companies')
     template_name = 'companies_app/confirm_delete.html'

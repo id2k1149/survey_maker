@@ -138,6 +138,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = '/tmp/emails'
 
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'tt.test.survey@gmail.com'
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_PORT = 587
+
 
 # Переназначение модели пользователя
 AUTH_USER_MODEL = 'users_app.User'
+
+# Переходы
+# Куда идти на логин
+LOGIN_URL = '/users/login/'
+# Куда идти после логина
+LOGIN_REDIRECT_URL = '/companies/'
+# Куда идти после выхода
+LOGOUT_REDIRECT_URL = '/'
+
+# for django debug toolbar
+INTERNAL_IPS = ['127.0.0.1']
