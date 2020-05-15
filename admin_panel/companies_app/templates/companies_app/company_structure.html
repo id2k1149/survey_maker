@@ -1,9 +1,8 @@
 {% extends "base.html" %}
-
-{% block title %} Компании {% endblock %}
+{% load mptt_tags %}
+{% block title %} Карточка компании {% endblock %}
 
 {% block content %}
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -74,76 +73,79 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+
+
     <!-- Page Heading -->
-    <i class="fa fa-sitemap"> Управление</i>
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0" style="color:black;">Компании</h1>
-        <a href="{% url 'companies:create' %}"
+    <div>
+        {% if company.logo %}
+
+        <div>
+            <i class="fa">
+                <img src="{{company.logo.url}}" width="40"> Карточка компании
+                <a class="collapse-item" href="{% url 'companies:companies' %}">
+                    <i class="fa fa-ellipsis-v"> </i>
+                </a>
+            </i>
+        </div>
+
+        {% else %}
+        <i class="fa fa-sitemap"> Карточка компании</i>
+        <i class="fa fa-ellipsis-v"></i>
+        {% endif %}
+        <a href="{% url 'companies:update' pk=object.id  %}"
            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-sm text-white-50"></i>
-            СОЗДАТЬ КОМПАНИЮ</a>
+            редактировать КОМПАНИЮ</a>
+        <a href="{% url 'companies:confirm_delete' pk=object.id  %}"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-sm text-white-50"></i>
+            удалить КОМПАНИЮ</a>
+
     </div>
-    <!-- Content Row -->
-    <div class="row col-md-12">
-        {% for item in object_list %}
-        <!-- Companies Cards  -->
-        <div class="col-xl-3 col-md-6 mb-4">
+    <!--          <i class="fa fa-sitemap"> Компания</i>-->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ company.name }}</h1>
+        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
+    </div>
+
+
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h3 class="h3 mb-0 text-gray-800">Отделы:</h3>
+    </div>
+
+
+
+
+
+    <ul class="root">
+    {% recursetree company.departments.all %}
+        <li style="list-style-type: none;">
+        <div class="col-12">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-lg-2">
-                            {% if item.logo %}
-                            <img src="{{item.logo.url}}" width="40">
-                            {% else %}
-                            <i class="fas fa-sitemap fa-2x text-gray-300"> </i>
-                            {% endif %}
-                        </div>
-                        <div class="col-lg-8" style="padding-left: 10px;">
-                            <a href="{% url 'companies:company' pk=item.pk %}">
-                                <div class="font-weight-bold text-primary text-uppercase mb-1">{{ item.name }}</div>
-                            </a>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <a href="{% url 'companies:company_structure' pk=item.pk %}">
-
-                                <div class="row" style="color:black;">
-                                    <div class="col  text-center">{{ item.departments.all|length }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col d-flex justify-content-center text-center">Структуры</div>
-                                </div>
-                            </a>
-
-                        </div>
-                        <div class="col-lg-4">
-                            <a href="{% url 'companies:company' pk=item.pk %}">
-                                <div class="row" style="color:black;">
-                                    <div class="col  text-center">{{ item.user_set.all|length }}</div>
-                                </div>
-                                <div class="row" style="color:gray;">
-                                    <div class="col d-flex justify-content-center text-center">Сотрудники</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-4">
-                                <div class="row" style="color:black;">
-                                    <div class="col  text-center">77</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col d-flex justify-content-center text-center">Опросы</div>
-                                </div>
-                        </div>
+                    <div class="row no-gutters ">
+                        <div class="col-md-4 font-weight-bold text-primary text-uppercase mb-1">{{ node.department_name }}</div>
+                        <div class="col-md-4 font-weight-bold text-primary text-uppercase mb-1">{{ node.head_of_department }}</div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div><br>
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+    <!-- Content Row -->
 
-        {% endfor %}
-    </div>
+
+
 </div>
 <!-- /.container-fluid -->
+
 {% endblock %}
+
+

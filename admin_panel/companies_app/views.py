@@ -48,10 +48,19 @@ class CompaniesListView(LoginRequiredMixin, ListView):
     template_name = 'companies_app/companies.html'
 
 
-# DetailView
+# DetailView with users
 class CompanyDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Company
     template_name = 'companies_app/company.html'
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+# DetailView with departments
+class CompanyDepartmentsDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Company
+    template_name = 'companies_app/company_structure.html'
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -96,6 +105,12 @@ class CompanyDelete(LoginRequiredMixin, DeleteView):
 
 
 def show_structure(request):
-#     # structure = get_object_or_404(Structure, id=id)
+    # company_structure = get_object_or_404(Department, id=id)
     return render(request, "companies_app/structure.html", context={'departments': Department.objects.all()})
+
+
+# ListView
+class DepartmentsListView(LoginRequiredMixin, ListView):
+    model = Department
+    template_name = 'companies_app/departments.html'
 
