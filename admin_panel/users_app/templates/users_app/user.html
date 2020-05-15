@@ -95,12 +95,20 @@
     </div>
 
 
-         {% for item in user.company_set.all %}
-         <div class="row">
-            <h3 class="h3 mb-0 text-gray-800">{{ item.name }}</h3>
+     {% for item in user.companies.all %}
+     <div class="row col-md-12">
+        <div class="col-12">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters ">
+                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">{{ item.name }}</div>
+                    </div>
 
-         </div><br><hr>
-         {% endfor  %}
+                </div>
+            </div>
+        </div>
+    </div><br>
+    {% endfor  %}
 
 
 

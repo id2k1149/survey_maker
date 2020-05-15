@@ -8,12 +8,12 @@ class Command(BaseCommand):
         for item in users:
 
             print(item.email)
-            print(item.company_set.all())
+            print(item.companies.all())
         print('---------------')
-        user = User.objects.get(email='alisonrich@hotmail.com')
+        user = User.objects.get(email='brandy73@bass.com')
         print(user)
         print('---------------')
-        companies = user.company_set.all()
+        companies = user.companies.all()
         print(len(companies))
         for item in companies:
             print(item.name)

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from companies_app.models import Company
 
 
 class UserManager(BaseUserManager):
@@ -42,6 +43,7 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     avatar = models.ImageField(null=True, blank=True, upload_to='user_avatars')
+    companies = models.ManyToManyField(Company, blank=True, verbose_name='Компании')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

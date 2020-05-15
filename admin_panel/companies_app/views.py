@@ -2,20 +2,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from .forms import ContactForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Company
+from .models import Company, Department
 
 
 # Create your views here.
+# def main_view(request):
+#     pass
+#     return render(request, 'companies_app/index.html', context={})
+
+
 def main_view(request):
-    pass
-    return render(request, 'companies_app/index.html', context={})
-
-
-def landing_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -36,10 +36,10 @@ def landing_view(request):
             return HttpResponseRedirect(reverse('companies:index'))
 
         else:
-            return render(request, 'companies_app/landing.html', context={'form': form})
+            return render(request, 'companies_app/index.html', context={'form': form})
     else:
         form = ContactForm()
-        return render(request, 'companies_app/landing.html', context={'form': form})
+        return render(request, 'companies_app/index.html', context={'form': form})
 
 
 # ListView
@@ -84,4 +84,18 @@ class CompanyDelete(LoginRequiredMixin, DeleteView):
     model = Company
     success_url = reverse_lazy('companies:companies')
     template_name = 'companies_app/confirm_delete.html'
+
+
+# DetailView
+# class StructureDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+#     model = Structure
+#     template_name = 'companies_app/structure.html'
+#
+#     def test_func(self):
+#         return self.request.user.is_superuser
+
+
+def show_structure(request):
+#     # structure = get_object_or_404(Structure, id=id)
+    return render(request, "companies_app/structure.html", context={'departments': Department.objects.all()})
 

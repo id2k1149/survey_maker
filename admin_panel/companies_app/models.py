@@ -1,13 +1,30 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-from users_app.models import User
 
 
 # Create your models here.
+class Department(MPTTModel):
+    department_name = models.CharField(max_length=64, unique=True, verbose_name='Подразделение')
+    head_of_department = models.CharField(max_length=64, null=True, blank=True)
+    code = models.PositiveIntegerField(null=True, blank=True)
+    workers = models.PositiveIntegerField(null=True, blank=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    class Meta:
+        verbose_name = 'Подразделение'
+        verbose_name_plural = 'Подразделения'
+
+    class MPTTMeta:
+        order_insertion_by = ['department_name']
+
+    def __str__(self):
+        return self.department_name
+
+
 class Company(models.Model):
     name = models.CharField(max_length=64, unique=True, verbose_name='Название')
     logo = models.ImageField(null=True, blank=True, upload_to='company_logo', verbose_name='Логотип')
-    employees = models.ManyToManyField(User, blank=True, verbose_name='Сотрудники')
+    departments = models.ManyToManyField(Department, blank=True)
 
     class Meta:
         verbose_name = 'Компания'
@@ -15,22 +32,3 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Structure(MPTTModel):
-    company = models.ManyToManyField(Company)
-    department = models.CharField(max_length=64, unique=True, verbose_name='Подразделение')
-    head_of_department = models.CharField(max_length=64, null=True, blank=True)
-    code = models.PositiveIntegerField(null=True, blank=True)
-    workers = models.PositiveIntegerField(null=True, blank=True)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-
-    class Meta:
-        verbose_name = 'Структура'
-        verbose_name_plural = 'Структуры'
-
-    class MPTTMeta:
-        order_insertion_by = ['department']
-
-    def __str__(self):
-        return self.department
