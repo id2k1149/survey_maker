@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Регистрация {% endblock %}
+{% block title %} Создать компанию {% endblock %}
 
 {% block content %}
     <!-- Content Wrapper -->
@@ -17,17 +17,17 @@
         </button>
 
         <!-- Topbar Search -->
-<!--        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-<!--            <div class="input-group">-->
-<!--                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."-->
-<!--                       aria-label="Search" aria-describedby="basic-addon2">-->
-<!--                <div class="input-group-append">-->
-<!--                    <button class="btn btn-primary" type="button">-->
-<!--                        <i class="fas fa-search fa-sm"></i>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </form>-->
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                       aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
@@ -69,33 +69,52 @@
 
     </nav>
     <!-- End of Topbar -->
-<div class="card-body p-0">
-    <!-- Nested Row within Card Body -->
-    <div class="row align-items-center">
-        <div class="col-lg-6">
-            <div class="p-5">
-                <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Регистрация</h1>
-                </div>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary btn-user btn-block">Отправить</button>
-                </form>
-            </div>
+<div>
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+
+        <!-- Page Heading -->
+        <i class="fa fa-sitemap"> Компании</i>
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0" style="color:black;">Добавление подразделения</h1>
         </div>
-        <div class="col-lg-6 d-none d-lg-block ">
-            <div class="text-center">
-                {% load static %}<img src="{% static 'bootstrap/img/laptop.png' %}" width=80%>
+
+
+        <!-- Content Row -->
+
+        <div>
+            <h1 class="h1 mb-0" style="color:black; text-align:center">Добавление подразделения</h1>
+
+            <div style="text-align:center;">
+
+
             </div>
+            <form method="post" enctype="multipart/form-data" style="text-align:center;">
+                {% csrf_token %}
+                {{ form.as_ul }}
+<!--                {% for field in form %}-->
+<!--                {% for error in field.errors %}-->
+<!--                {{error}}-->
+<!--                {% endfor %}-->
+<!--                <p placeholder="Введите название ....">{{field}}</p>-->
+<!--                {% endfor %}-->
+
+                <button type="submit" class="btn btn-primary" style="text-align:center;">ДОБАВИТЬ ОТДЕЛ</button>
+            </form>
+            <br>
+            <div style="text-align:center;">
+                <a href="{% url 'companies:companies' %}">ОТМЕНИТЬ</a>
+            </div>
+            <br>
+
         </div>
+
+
+        <!-- /.container-fluid -->
+
     </div>
-    <hr>
-    <div class="text-center">
-        <a class="small" href="{% url 'users:login' %}">Есть аккаунт?</a>
-    </div>
-    <br>
 
     {% endblock %}
-
-
+</div>

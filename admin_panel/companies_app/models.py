@@ -32,3 +32,8 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+    def display_departments(self):
+        departments = self.departments.all()
+        result = ';'.join([item.department_name for item in departments])
+        return result

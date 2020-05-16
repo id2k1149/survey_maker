@@ -4,5 +4,11 @@ from mptt.admin import MPTTModelAdmin
 
 
 # Register your models here.
-admin.site.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    search_fields = ('name',)
+    ordering = ('name',)
+
+
+admin.site.register(Company, CompanyAdmin)
 admin.site.register(Department, MPTTModelAdmin)

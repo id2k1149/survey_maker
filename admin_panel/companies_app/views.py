@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import send_mail
+from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from .forms import ContactForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -46,6 +47,23 @@ def main_view(request):
 class CompaniesListView(LoginRequiredMixin, ListView):
     model = Company
     template_name = 'companies_app/companies.html'
+
+    # def get_queryset(self):
+    #     query = self.request.GET.get('q')
+    #     if query:
+    #         return Company.objects.filter(name=query)
+    #     else:
+    #         return Company.objects.all()
+
+
+class CompanySearchView(ListView):
+    model = Company
+    template_name = 'companies_app/search_results.html'
+
+    def get_queryset(self):  # new
+        query = self.request.GET.get('q')
+        object_list = Company.objects.filter(Q(name__icontains=query))
+        return object_list
 
 
 # DetailView with users
@@ -95,22 +113,19 @@ class CompanyDelete(LoginRequiredMixin, DeleteView):
     template_name = 'companies_app/confirm_delete.html'
 
 
-# DetailView
-# class StructureDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-#     model = Structure
-#     template_name = 'companies_app/structure.html'
-#
-#     def test_func(self):
-#         return self.request.user.is_superuser
-
-
-def show_structure(request):
-    # company_structure = get_object_or_404(Department, id=id)
-    return render(request, "companies_app/structure.html", context={'departments': Department.objects.all()})
-
-
-# ListView
-class DepartmentsListView(LoginRequiredMixin, ListView):
+# CreateView
+class DepartmentCreateView(LoginRequiredMixin, CreateView):
+    fields = '__all__'
     model = Department
-    template_name = 'companies_app/departments.html'
+    success_url = reverse_lazy('companies:company_structure')
+    template_name = 'companies_app/add_department.html'
+
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        # form.instance.departments_set =
+        return super().form_valid(form)
+
+
 

@@ -42,7 +42,7 @@ class UsersListView(LoginRequiredMixin, ListView):
 
 # CreateView
 class UserCreateView(LoginRequiredMixin, CreateView):
-    fields = ('email', 'first_name', 'last_name', 'avatar')
+    fields = ('email', 'first_name')
 
     model = User
     success_url = reverse_lazy('users:users')

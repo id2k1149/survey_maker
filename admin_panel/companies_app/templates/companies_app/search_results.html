@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %} Регистрация {% endblock %}
+{% load mptt_tags %}
+{% block title %} Карточка компании {% endblock %}
 
 {% block content %}
     <!-- Content Wrapper -->
@@ -17,22 +18,24 @@
         </button>
 
         <!-- Topbar Search -->
-<!--        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-<!--            <div class="input-group">-->
-<!--                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."-->
-<!--                       aria-label="Search" aria-describedby="basic-addon2">-->
-<!--                <div class="input-group-append">-->
-<!--                    <button class="btn btn-primary" type="button">-->
-<!--                        <i class="fas fa-search fa-sm"></i>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </form>-->
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                       aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
 
             <div class="topbar-divider d-none d-sm-block"></div>
+
+
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
@@ -69,33 +72,19 @@
 
     </nav>
     <!-- End of Topbar -->
-<div class="card-body p-0">
-    <!-- Nested Row within Card Body -->
-    <div class="row align-items-center">
-        <div class="col-lg-6">
-            <div class="p-5">
-                <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Регистрация</h1>
-                </div>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary btn-user btn-block">Отправить</button>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-6 d-none d-lg-block ">
-            <div class="text-center">
-                {% load static %}<img src="{% static 'bootstrap/img/laptop.png' %}" width=80%>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="text-center">
-        <a class="small" href="{% url 'users:login' %}">Есть аккаунт?</a>
-    </div>
-    <br>
 
-    {% endblock %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+
+      {{ object_list }}
+    <!-- Content Row -->
+
+
+
+</div>
+<!-- /.container-fluid -->
+
+{% endblock %}
 
 
