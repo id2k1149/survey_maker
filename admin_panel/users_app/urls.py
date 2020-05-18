@@ -10,6 +10,7 @@ urlpatterns = [
     path('register/', views.RegisterUserCreateView.as_view(), name='register'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('users/', views.UsersListView.as_view(), name='users'),
+    path('search/', views.UserSearchView.as_view(), name='search_results'),
     path('create/', views.UserCreateView.as_view(), name='create'),
     path('user/<int:pk>/', views.UserDetailView.as_view(), name='user'),
     path('profile/<int:pk>/', views.UserUpdateView.as_view(), name='profile'),

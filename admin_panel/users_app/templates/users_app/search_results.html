@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Пользователи {% endblock %}
+{% block title %} Карточка сотрудника {% endblock %}
 
 {% block content %}
     <!-- Content Wrapper -->
@@ -17,28 +17,24 @@
         </button>
 
         <!-- Topbar Search -->
-        <form method="GET"
-                  action="{% url 'users:search_results' %}"
-                  class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group">
-                    <input type="text"
-                           class="form-control bg-light border-0 small"
-                           placeholder="Поиск ..."
-                           aria-label="Search"
-                           aria-describedby="basic-addon2"
-                           name="q">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                       aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
                 </div>
-            </form>
+            </div>
+        </form>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
 
             <div class="topbar-divider d-none d-sm-block"></div>
+
+
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
@@ -75,47 +71,19 @@
 
     </nav>
     <!-- End of Topbar -->
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <!-- Page Heading -->
-    <i class="fa fa-sitemap"> Управление</i>
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0" style="color:black;">{{user_name}}</h1>
-        <a href="{% url 'users:create' %}"
-           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-sm text-white-50"></i>
-            ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ</a>
-    </div>
+
+
+      {{ object_list }}
     <!-- Content Row -->
 
 
-     {% for item in object_list %}
-    <a href="{% url 'users:user' pk=item.pk %}" style="text-decoration: none;">
-     <div class="row col-md-12">
-        <div class="col-12">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters ">
-                        <div class="col-md-1 d-flex ">
-                            {% if item.avatar %}
-                            <img src="{{item.avatar.url}}" width="40">
-                            {% else %}
-                            <i class="fas fa-user fa-2x text-gray-300"> </i>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">{{ item.email }}</div>
-                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.first_name }}</div>
-                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.last_name }}</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div><br>
-         </a>
-    {% endfor  %}
 
 </div>
 <!-- /.container-fluid -->
+
 {% endblock %}
+
 
