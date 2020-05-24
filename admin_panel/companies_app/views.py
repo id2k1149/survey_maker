@@ -67,21 +67,15 @@ class CompanySearchView(ListView):
 
 
 # DetailView with users
-class CompanyDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class CompanyDetailView(LoginRequiredMixin, DetailView):
     model = Company
     template_name = 'companies_app/company.html'
 
-    def test_func(self):
-        return self.request.user.is_superuser
-
 
 # DetailView with departments
-class CompanyDepartmentsDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class CompanyDepartmentsDetailView(LoginRequiredMixin,  DetailView):
     model = Company
     template_name = 'companies_app/company_structure.html'
-
-    def test_func(self):
-        return self.request.user.is_superuser
 
 
 # CreateView

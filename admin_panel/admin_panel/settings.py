@@ -154,7 +154,7 @@ LOGIN_URL = '/users/login/'
 # Куда идти после логина
 LOGIN_REDIRECT_URL = '/companies/'
 # Куда идти после выхода
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/users/login/'
 
 # for django debug toolbar
 INTERNAL_IPS = ['127.0.0.1']

@@ -70,12 +70,9 @@ class UserCreateView(LoginRequiredMixin, CreateView):
 
 
 # DetailView
-class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'users_app/user.html'
-
-    def test_func(self):
-        return self.request.user.is_superuser
 
 
 # UpdateView
