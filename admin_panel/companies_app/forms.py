@@ -12,6 +12,11 @@ class ContactForm(forms.Form):
 
 
 class DepartmentForm(forms.ModelForm):
+    def __init__(self, new_id, *args, **kwargs):
+        super(DepartmentForm, self).__init__(*args, **kwargs)
+        # self.fields['parent'].queryset = TreeNodeChoiceField(queryset=Department.objects.all().filter(company=new_id))
+        self.fields['parent'].queryset = Department.objects.all().filter(company=new_id)
+
     # department_name = forms.CharField(label='Название',
     #                                   widget=forms.TextInput(
     #                                       attrs={'placeholder': 'Name', 'class': 'form-control rounded-0'}))
@@ -19,7 +24,7 @@ class DepartmentForm(forms.ModelForm):
     # q_set_1 = Department.objects.all()
     # print(q_set_1)
 
-    # parent = TreeNodeChoiceField(queryset=Department.objects.all())
+
 
 
     class Meta:
