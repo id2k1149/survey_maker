@@ -82,7 +82,6 @@ class AddDepartmentDetailView(LoginRequiredMixin,  DetailView):
 class AddDepartmentCreateView(LoginRequiredMixin, CreateView):
     model = Department
     fields = '__all__'
-    # template_name = 'companies_app/company_add_department.html'
     template_name = 'companies_app/company_add_department.html'
     success_url = reverse_lazy('')
 

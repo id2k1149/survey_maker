@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'surveys_app',
     'users_app',
     'reports_app',
+    'formtools',
 ]
 
 MIDDLEWARE = [

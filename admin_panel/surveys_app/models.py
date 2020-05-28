@@ -82,14 +82,14 @@ class Survey(MPTTModel):
     name = models.CharField(max_length=64)
     status = models.ForeignKey(StatusType, on_delete=models.CASCADE, null=True, blank=True)
     link = models.CharField(max_length=128, null=True, blank=True)
-    company = models.ManyToManyField(Company, blank=True)
+    company = models.ForeignKey(Company, null=True, blank=True, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     contacts = models.TextField(max_length=128, null=True, blank=True)
     page = models.ManyToManyField(Page, blank=True)
     respond_counter = models.PositiveIntegerField(null=True, blank=True)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, null=True, blank=True, on_delete=models.CASCADE, default='1')
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     class Meta:
