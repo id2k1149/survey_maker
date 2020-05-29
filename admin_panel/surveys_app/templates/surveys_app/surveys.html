@@ -78,7 +78,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
-    <i class="fa fa-sitemap"> Управление</i>
+    <i class="fa fa-file-alt"> Управление</i>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0" style="color:black;">{{user_name}}</h1>
         <a href="{% url 'surveys:create' %}"
@@ -106,6 +106,7 @@
                         <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">{{ item.name }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.date_created }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.start_date }}</div>
+                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.end_date }}</div>
                     </div>
 
                 </div>
