@@ -2,6 +2,7 @@ from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from companies_app.models import Company
 from users_app.models import User
+from django.utils.timezone import now
 
 
 # Create your models here.
@@ -83,7 +84,7 @@ class Survey(MPTTModel):
     status = models.ForeignKey(StatusType, on_delete=models.CASCADE, null=True, blank=True)
     link = models.CharField(max_length=128, null=True, blank=True)
     company = models.ForeignKey(Company, null=True, blank=True, on_delete=models.CASCADE)
-    date_created = models.DateTimeField(auto_now_add=True)
+    created_day = models.DateField(default=now)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     contacts = models.TextField(max_length=128, null=True, blank=True)

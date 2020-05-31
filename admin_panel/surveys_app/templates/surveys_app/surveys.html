@@ -81,7 +81,7 @@
     <i class="fa fa-file-alt"> Управление</i>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0" style="color:black;">{{user_name}}</h1>
-        <a href="{% url 'surveys:create' %}"
+        <a href="{% url 'surveys:add_survey' %}"
            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-sm text-white-50"></i>
             ДОБАВИТЬ ОПРОС</a>
@@ -104,7 +104,7 @@
 <!--                            {% endif %}-->
 <!--                        </div>-->
                         <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">{{ item.name }}</div>
-                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.date_created }}</div>
+                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.created_day }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.start_date }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.end_date }}</div>
                     </div>
