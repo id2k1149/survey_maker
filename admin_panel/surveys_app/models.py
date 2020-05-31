@@ -48,19 +48,6 @@ class Question(MPTTModel):
         return self.question_type
 
 
-class InfoPage(models.Model):
-    title = models.CharField(max_length=32, null=True, blank=True)
-    text = models.TextField(max_length=128, null=True, blank=True)
-
-
-class InfoPages(models.Model):
-    name = models.CharField(max_length=32, null=True, blank=True)
-    info = models.ForeignKey(InfoPage, on_delete=models.CASCADE, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-
 class NumberPages(models.Model):
     page_number = models.PositiveIntegerField(null=True, blank=True)
     question = models.ManyToManyField(Question, blank=True)
@@ -70,7 +57,7 @@ class NumberPages(models.Model):
         verbose_name_plural = 'Страницы'
 
     def __str__(self):
-        return self.name
+        return self.page_number
 
 
 class Language(models.Model):
@@ -97,14 +84,19 @@ class StatusType(models.Model):
 
 class Survey(MPTTModel):
     name = models.CharField(max_length=64)
-    status = models.ForeignKey(StatusType, on_delete=models.CASCADE, null=True, blank=True)
+    status = models.ForeignKey(StatusType, on_delete=models.CASCADE, null=True, blank=True, default='1')
     link = models.CharField(max_length=128, null=True, blank=True)
     company = models.ForeignKey(Company, null=True, blank=True, on_delete=models.CASCADE)
+    hello_title = models.CharField(max_length=32, null=True, blank=True)
+    hello_text = models.TextField(max_length=128, null=True, blank=True)
+    info_title = models.CharField(max_length=32, null=True, blank=True)
+    info_text = models.TextField(max_length=128, null=True, blank=True)
+    bye_title = models.CharField(max_length=32, null=True, blank=True)
+    bye_text = models.TextField(max_length=128, null=True, blank=True)
     created_day = models.DateField(default=now)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     contacts = models.TextField(max_length=128, null=True, blank=True)
-    info_pages = models.ManyToManyField(InfoPages, blank=True)
     pages = models.ManyToManyField(NumberPages, blank=True)
     respond_counter = models.PositiveIntegerField(null=True, blank=True)
     language = models.ForeignKey(Language, null=True, blank=True, on_delete=models.CASCADE, default='1')

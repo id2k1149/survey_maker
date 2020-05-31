@@ -34,10 +34,21 @@ class FormWizardView(SessionWizardView):
         return HttpResponseRedirect(reverse("surveys:surveys"))
 
 
-# SurveyDetailView with departments
+# SurveyDetailView
 class SurveyDetailView(LoginRequiredMixin,  DetailView):
     model = Survey
     template_name = 'surveys_app/survey.html'
+
+
+class HelloView(LoginRequiredMixin,  UpdateView):
+    model = Survey
+    fields = ['hello_title', 'hello_text', ]
+    template_name = 'surveys_app/hello.html'
+
+
+
+
+
 
 
 

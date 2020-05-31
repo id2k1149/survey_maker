@@ -94,7 +94,7 @@
 <!--    </div>-->
 
 
-    <a href="{% url 'surveys:hello' pk=survey.id %}" style="text-decoration: none;">
+    <a href="#" style="text-decoration: none;">
     <div class="row col-md-12">
         <div class="col-12">
             <div class="card  shadow h-100 py-2">
@@ -112,6 +112,25 @@
             </div>
         </div>
     </div><br>
+        <div class="container">
+    <form method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                 {{ form.as_p }}
+
+
+
+                <button type="submit" class="btn btn-primary" style="text-align:center;">СОХРАНИТЬ</button>
+            </form>
+            <br>
+            <div style="text-align:center;">
+                <a href="{% url 'users:users' %}">ОТМЕНИТЬ</a>
+            </div>
+            <br>
+
+
+
+</div>
+
 
     <a href="#" style="text-decoration: none;">
     <div class="row col-md-12">

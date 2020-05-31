@@ -24,3 +24,14 @@ class StepThreeForm(forms.ModelForm):
     class Meta:
         model = Survey
         fields = ['company', ]
+
+
+class HelloForm(forms.ModelForm):
+    class Meta:
+        model = Survey
+        fields = ['hello_title', 'hello_text', ]
+
+
+
+
+
