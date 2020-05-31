@@ -48,13 +48,29 @@ class Question(MPTTModel):
         return self.question_type
 
 
-class Page(models.Model):
+class InfoPage(models.Model):
+    title = models.CharField(max_length=32, null=True, blank=True)
+    text = models.TextField(max_length=128, null=True, blank=True)
+
+
+class InfoPages(models.Model):
+    name = models.CharField(max_length=32, null=True, blank=True)
+    info = models.ForeignKey(InfoPage, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class NumberPages(models.Model):
     page_number = models.PositiveIntegerField(null=True, blank=True)
     question = models.ManyToManyField(Question, blank=True)
 
     class Meta:
         verbose_name = 'Страница'
         verbose_name_plural = 'Страницы'
+
+    def __str__(self):
+        return self.name
 
 
 class Language(models.Model):
@@ -88,7 +104,8 @@ class Survey(MPTTModel):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     contacts = models.TextField(max_length=128, null=True, blank=True)
-    page = models.ManyToManyField(Page, blank=True)
+    info_pages = models.ManyToManyField(InfoPages, blank=True)
+    pages = models.ManyToManyField(NumberPages, blank=True)
     respond_counter = models.PositiveIntegerField(null=True, blank=True)
     language = models.ForeignKey(Language, null=True, blank=True, on_delete=models.CASCADE, default='1')
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')

@@ -90,7 +90,7 @@
 
 
      {% for item in object_list %}
-    <a href="{% url 'users:user' pk=item.pk %}" style="text-decoration: none;">
+    <a href="{% url 'surveys:survey' pk=item.pk %}" style="text-decoration: none;">
      <div class="row col-md-12">
         <div class="col-12">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -103,7 +103,8 @@
 <!--                            <i class="fas fa-user fa-2x text-gray-300"> </i>-->
 <!--                            {% endif %}-->
 <!--                        </div>-->
-                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">{{ item.name }}</div>
+                        <div class="col-md-2 font-weight-bold text-primary text-uppercase ">{{ item.name }}</div>
+                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.status }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.created_day }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.start_date }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.end_date }}</div>

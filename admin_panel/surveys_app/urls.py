@@ -11,7 +11,7 @@ app_name = 'surveys_app'
 
 urlpatterns = [
     path('surveys/', views.SurveysListView.as_view(), name='surveys'),
-    path('survey/<int:id>/', views.edit_survey, name='survey'),
+    path('survey/<int:pk>/', views.SurveyDetailView.as_view(), name='survey'),
     path('add_survey/', views.FormWizardView.as_view([StepOneForm, StepTwoForm, StepThreeForm]), name='add_survey'),
 
 

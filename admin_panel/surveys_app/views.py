@@ -9,10 +9,10 @@ from formtools.wizard.views import SessionWizardView
 
 
 # Create your views here.
-def edit_survey(request, id):
-    survey = get_object_or_404(Survey, id=id)
-    return render(request, 'surveys_app/survey.html', context={'survey': survey})
-
+# def edit_survey(request, id):
+#     survey = get_object_or_404(Survey, id=id)
+#     return render(request, 'surveys_app/survey.html', context={'survey': survey})
+#
 
 # ListView
 class SurveysListView(LoginRequiredMixin, ListView):
@@ -34,6 +34,10 @@ class FormWizardView(SessionWizardView):
         return HttpResponseRedirect(reverse("surveys:surveys"))
 
 
+# SurveyDetailView with departments
+class SurveyDetailView(LoginRequiredMixin,  DetailView):
+    model = Survey
+    template_name = 'surveys_app/survey.html'
 
 
 

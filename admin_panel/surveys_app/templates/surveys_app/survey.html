@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %} login {% endblock %}
+{% load mptt_tags %}
+{% block title %} Карточка компании {% endblock %}
 
 {% block content %}
     <!-- Content Wrapper -->
@@ -69,28 +70,65 @@
 
     </nav>
     <!-- End of Topbar -->
-<div class="container">
-    <form method="post" enctype="multipart/form-data" style="text-align:center;">
-                {% csrf_token %}
-                {{ form.as_ul }}
 
-<!--                {% for field in form %}-->
-<!--                {% for error in field.errors %}-->
-<!--                {{error}}-->
-<!--                {% endfor %}-->
-<!--                <p placeholder="Введите название ">{{field}}</p>-->
-<!--                {% endfor %}-->
-                <button type="submit" class="btn btn-primary" style="text-align:center;">СОХРАНИТЬ</button>
-            </form>
-            <br>
-            <div style="text-align:center;">
-                <a href="{% url 'users:users' %}">ОТМЕНИТЬ</a>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+
+    <!-- Page Heading -->
+
+    <!--          <i class="fa fa-sitemap"> Компания</i>-->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ survey.name }}</h1>
+        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
+    </div>
+
+
+
+<!--    <div class="d-sm-flex align-items-center justify-content-between mb-4">-->
+<!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">-->
+<!--&lt;!&ndash;               <a href="{% url 'companies:company_add_department' pk=object.pk %}"&ndash;&gt;-->
+
+<!--            <i class="fas fa-sm text-white-50"></i>-->
+<!--            Добавить </a>-->
+<!--    </div>-->
+
+
+    <a href="#" style="text-decoration: none;">
+    {% for item in survey.info_pages.all %}
+     <div class="row col-md-12">
+        <div class="col-12">
+            <div class="card  shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters ">
+
+                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">{{ item.name }}</div>
+                    </div>
+
+                </div>
             </div>
-            <br>
+        </div>
+    </div><br>
+    {% endfor  %}
+    <div class="row col-md-12">
+        <div class="col-12">
+            <div class="card  shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters ">
+                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">+ ДОБАВИТЬ СТРАНИЦУ</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div><br>
 
 
 
+    <!-- Content Row -->
 </div>
+<!-- /.container-fluid -->
+
 {% endblock %}
 
 
