@@ -9,10 +9,18 @@ from formtools.wizard.views import SessionWizardView
 
 
 # Create your views here.
-# def edit_survey(request, id):
-#     survey = get_object_or_404(Survey, id=id)
-#     return render(request, 'surveys_app/survey.html', context={'survey': survey})
-#
+# def hello(request):
+#     if request.method == 'GET':
+#         form = HelloForm()
+#         return render(request, 'surveys_app/hello.html', context={'form': form})
+#     else:
+#         form = HelloForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect(reverse('surveys:survey'))
+#         else:
+#             return render(request, 'surveys_app/hello.html', context={'form': form})
+
 
 # ListView
 class SurveysListView(LoginRequiredMixin, ListView):
@@ -44,6 +52,14 @@ class HelloView(LoginRequiredMixin,  UpdateView):
     model = Survey
     fields = ['hello_title', 'hello_text', ]
     template_name = 'surveys_app/hello.html'
+    success_url = reverse_lazy('')
+
+    def post(self, request, *args, **kwargs):
+        self.survey_id = kwargs('pk')
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('surveys:survey', kwargs={'pk': self.survey_id})
 
 
 

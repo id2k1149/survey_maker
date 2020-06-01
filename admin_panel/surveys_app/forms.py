@@ -26,10 +26,21 @@ class StepThreeForm(forms.ModelForm):
         fields = ['company', ]
 
 
-class HelloForm(forms.ModelForm):
-    class Meta:
-        model = Survey
-        fields = ['hello_title', 'hello_text', ]
+# class HelloForm(forms.ModelForm):
+#     hello_title = forms.CharField(label='ЗАГОЛОВОК',
+#                                   widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
+#
+#     hello_text = forms.CharField(label='ТЕКСТ',
+#                                  widget=forms.Textarea(attrs={'class': "form-control rounded-0"}))
+#
+#     class Meta:
+#         model = Survey
+#         fields = ['hello_title', 'hello_text', ]
+
+
+
+
+
 
 
 
