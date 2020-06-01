@@ -48,14 +48,42 @@ class SurveyDetailView(LoginRequiredMixin,  DetailView):
     template_name = 'surveys_app/survey.html'
 
 
-class HelloView(LoginRequiredMixin,  UpdateView):
+class HelloUpdateView(LoginRequiredMixin,  UpdateView):
     model = Survey
     fields = ['hello_title', 'hello_text', ]
     template_name = 'surveys_app/hello.html'
     success_url = reverse_lazy('')
 
     def post(self, request, *args, **kwargs):
-        self.survey_id = kwargs('pk')
+        self.survey_id = kwargs['pk']
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('surveys:survey', kwargs={'pk': self.survey_id})
+
+
+class InfoUpdateView(LoginRequiredMixin,  UpdateView):
+    model = Survey
+    fields = ['info_title', 'info_text', ]
+    template_name = 'surveys_app/info.html'
+    success_url = reverse_lazy('')
+
+    def post(self, request, *args, **kwargs):
+        self.survey_id = kwargs['pk']
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('surveys:survey', kwargs={'pk': self.survey_id})
+
+
+class ByeUpdateView(LoginRequiredMixin,  UpdateView):
+    model = Survey
+    fields = ['bye_title', 'bye_text', ]
+    template_name = 'surveys_app/bye.html'
+    success_url = reverse_lazy('')
+
+    def post(self, request, *args, **kwargs):
+        self.survey_id = kwargs['pk']
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):

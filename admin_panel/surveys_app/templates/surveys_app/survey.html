@@ -79,7 +79,7 @@
 
     <!--          <i class="fa fa-sitemap"> Компания</i>-->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ survey.name }} {{ survey.id }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ survey.name }} </h1>
         <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
     </div>
 
@@ -100,11 +100,8 @@
             <div class="card  shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters ">
-                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
+                        <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
                             ПРИВЕТСТВИЕ
-                        </div>
-                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
-                            {{ survey.name}} {{ survey.id}}
                         </div>
                     </div>
 
@@ -113,13 +110,13 @@
         </div>
     </div><br>
 
-    <a href="#" style="text-decoration: none;">
+    <a href="{% url 'surveys:info' pk=survey.id %}" style="text-decoration: none;">
     <div class="row col-md-12">
         <div class="col-12">
             <div class="card  shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters ">
-                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
+                        <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
                             ИНФОРМАЦИЯ
                         </div>
                     </div>
@@ -129,13 +126,13 @@
         </div>
     </div><br>
 
-    <a href="#" style="text-decoration: none;">
+    <a href="{% url 'surveys:bye' pk=survey.id %}" style="text-decoration: none;">
     <div class="row col-md-12">
         <div class="col-12">
             <div class="card  shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters ">
-                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
+                        <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
                             ЗАВЕРШАЮЩИЙ ЭКРАН
                         </div>
                     </div>
@@ -152,7 +149,7 @@
             <div class="card  shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters ">
-                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
+                        <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
                             + ДОБАВИТЬ СТРАНИЦУ
                         </div>
                     </div>
