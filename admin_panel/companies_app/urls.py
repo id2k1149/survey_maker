@@ -11,6 +11,7 @@ urlpatterns = [
     path('search/', views.CompanySearchView.as_view(), name='search_results'),
     path('company/<int:pk>/', views.CompanyDetailView.as_view(), name='company'),
     path('company_structure/<int:pk>/', views.CompanyDepartmentsDetailView.as_view(), name='company_structure'),
+    path('company_surveys/<int:pk>/', views.CompanySurveysDetailView.as_view(), name='company_surveys'),
     path('company_add_department/<int:pk>/', views.AddDepartmentDetailView.as_view(), name='company_add_department'),
     path('add_department/<int:pk>/', views.AddDepartmentCreateView.as_view(), name='add_department'),
     path('create/', views.CompanyCreateView.as_view(), name='create'),

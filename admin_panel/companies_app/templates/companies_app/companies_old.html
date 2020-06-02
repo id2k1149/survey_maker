@@ -125,7 +125,7 @@
                                     </a>
                                 </div>
                                 <div class="col-4">
-                                    <a href="{% url 'companies:company' pk=item.pk %}" style="text-decoration: none;">
+                                    <a href="{% url 'companies:company_surveys' pk=item.pk %}" style="text-decoration: none;">
                                         <div class="row" style="color:black;">
                                             <div class="col  text-center">{{ item.user_set.all|length }}</div>
                                         </div>

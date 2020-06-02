@@ -29,7 +29,7 @@ class SurveysListView(LoginRequiredMixin, ListView):
 
 
 # FormWizardView
-class FormWizardView(SessionWizardView):
+class FormWizardView(LoginRequiredMixin, SessionWizardView):
     template_name = "surveys_app/add_survey.html"
     form_list = [StepOneForm, StepTwoForm, StepThreeForm]
 

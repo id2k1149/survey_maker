@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %} Пользователи {% endblock %}
+{% load mptt_tags %}
+{% block title %} Карточка компании {% endblock %}
 
 {% block content %}
     <!-- Content Wrapper -->
@@ -17,23 +18,17 @@
         </button>
 
         <!-- Topbar Search -->
-        <form method="GET"
-                  action="{% url 'users:search_results' %}"
-                  class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group">
-                    <input type="text"
-                           class="form-control bg-light border-0 small"
-                           placeholder="Поиск ..."
-                           aria-label="Search"
-                           aria-describedby="basic-addon2"
-                           name="q">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                       aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
                 </div>
-            </form>
+            </div>
+        </form>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
@@ -75,59 +70,74 @@
 
     </nav>
     <!-- End of Topbar -->
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
+
+
     <!-- Page Heading -->
-    <i class="fa fa-file-alt"> Управление</i>
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0" style="color:black;">{{user_name}}</h1>
-        <a href="{% url 'surveys:add_survey' %}"
+    <div>
+        {% if company.logo %}
+
+        <div>
+            <i class="fa">
+                <img src="{{company.logo.url}}" width="40"> Карточка компании
+                <a class="collapse-item" href="{% url 'companies:companies' %}">
+                    <i class="fa fa-ellipsis-v"> </i>
+                </a>
+            </i>
+        </div>
+
+        {% else %}
+        <i class="fa fa-sitemap"> Карточка компании</i>
+        <i class="fa fa-ellipsis-v"></i>
+        {% endif %}
+        <a href="{% url 'companies:update' pk=object.id  %}"
            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-sm text-white-50"></i>
-            ДОБАВИТЬ ОПРОС</a>
+            редактировать КОМПАНИЮ</a>
+        <a href="{% url 'companies:confirm_delete' pk=object.id  %}"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-sm text-white-50"></i>
+            удалить КОМПАНИЮ</a>
+
     </div>
-    <!-- Content Row -->
+    <!--          <i class="fa fa-sitemap"> Компания</i>-->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ company.name }}</h1>
+        <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
+    </div>
 
 
-     {% for item in object_list %}
-    <a href="{% url 'surveys:survey' pk=item.pk %}" style="text-decoration: none;">
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h3 class="h3 mb-0 text-gray-800">ОПРОСЫ:</h3>
+            <a href="{% url 'companies:company_add_department' pk=object.pk %}"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-sm text-white-50"></i>
+            Добавить подразделение</a>
+    </div>
+
+    {% for item in company.survey_set.all %}
      <div class="row col-md-12">
         <div class="col-12">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters ">
-<!--                        <div class="col-md-1 d-flex ">-->
-<!--                            {% if item.avatar %}-->
-<!--                            <img src="{{item.avatar.url}}" width="40">-->
-<!--                            {% else %}-->
-<!--                            <i class="fas fa-user fa-2x text-gray-300"> </i>-->
-<!--                            {% endif %}-->
-<!--                        </div>-->
-                        <div class="col-md-2 font-weight-bold text-primary text-uppercase ">{{ item.name }}</div>
-                        <div class="col-md-1 d-flex" style="color:black;" >
-                            {% if item.is_draft %}
-                                ЧЕРНОВИК
-                            {% else %}
-                                {% if item.is_active %}
-                                    АКТИВНЫЙ
-                                {% else %}
-                                    ЗАВЕРШЕННЫЙ
-                                {% endif %}
-                            {% endif %}
-                        </div>
-                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.created_day }}</div>
-                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.start_date }}</div>
-                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.end_date }}</div>
+                        <div class="col-md-4 font-weight-bold text-primary text-uppercase mb-1">{{ item }}</div>
+                        <div class="col-md-1 d-flex ">{{ item.name }}</div>
+
                     </div>
 
                 </div>
             </div>
         </div>
     </div><br>
-         </a>
     {% endfor  %}
-
+    <!-- Content Row -->
 </div>
 <!-- /.container-fluid -->
+
 {% endblock %}
+
 
