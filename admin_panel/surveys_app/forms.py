@@ -1,5 +1,5 @@
 from django import forms
-from .models import Survey
+from .models import Survey, Pages
 
 
 class StepOneForm(forms.Form):
@@ -27,22 +27,15 @@ class StepThreeForm(forms.ModelForm):
 
 
 class PageForm(forms.ModelForm):
-    page_name = forms.CharField(label='ЗАГОЛОВОК',
-                                  widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
 
-    page_help = forms.CharField(label='ПОМОЩЬ',
-                                 widget=forms.Textarea(attrs={'class': "form-control rounded-0"}))
+
+    # page_name = forms.CharField(label='ЗАГОЛОВОК',
+    #                             widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
+    #
+    # page_help = forms.CharField(label='ПОМОЩЬ',
+    #                             widget=forms.Textarea(attrs={'class': "form-control rounded-0"}))
 
     class Meta:
-        model = Survey
+        model = Pages
         fields = ['page_name', 'page_help', ]
-
-
-
-
-
-
-
-
-
 

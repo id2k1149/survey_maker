@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Survey
-from .forms import StepOneForm, StepTwoForm, StepThreeForm
+from .models import Survey, Pages
+from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm
 from formtools.wizard.views import SessionWizardView
 
 
@@ -46,6 +46,35 @@ class FormWizardView(LoginRequiredMixin, SessionWizardView):
 class SurveyDetailView(LoginRequiredMixin,  DetailView):
     model = Survey
     template_name = 'surveys_app/survey.html'
+
+
+class SurveyAddPageView(LoginRequiredMixin, DetailView):
+    model = Survey
+    template_name = 'surveys_app/add_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = PageForm
+        return context
+
+
+class SurveyAddPageCreateView(LoginRequiredMixin, CreateView):
+    model = Pages
+    template_name = 'surveys_app/add_page.html'
+    success_url = '/'
+    form_class = PageForm
+
+    def post(self, request, *args, **kwargs):
+        self.survey_pk = kwargs['pk']
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        survey = get_object_or_404(Survey, pk=self.survey_pk)
+        form.instance.survey = survey
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('surveys:survey', kwargs={'pk': self.survey_pk})
 
 
 class HelloUpdateView(LoginRequiredMixin,  UpdateView):

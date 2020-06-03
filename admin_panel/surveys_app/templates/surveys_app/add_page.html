@@ -94,38 +94,41 @@
             <!--    </div>-->
 
 
-            <div class="row col-md-12">
-                <div class="col-12">
-                    <div class="card  shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters ">
-                                <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                    ПРИВЕТСТВИЕ
+            <a href="{% url 'surveys:hello' pk=survey.id %}" style="text-decoration: none;">
+                <div class="row col-md-12">
+                    <div class="col-12">
+                        <div class="card  shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters ">
+                                    <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                        ПРИВЕТСТВИЕ
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <br>
+                <br>
 
+                <a href="{% url 'surveys:info' pk=survey.id %}" style="text-decoration: none;">
+                    <div class="row col-md-12">
+                        <div class="col-12">
+                            <div class="card  shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters ">
+                                        <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                            ИНФОРМАЦИЯ
+                                        </div>
+                                    </div>
 
-            <div class="row col-md-12">
-                <div class="col-12">
-                    <div class="card  shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters ">
-                                <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                    ИНФОРМАЦИЯ
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <br>
+                    <br>
 
-            {% if survey.has_pages %}
+                    {% if survey.has_pages %}
                     {% for item in survey.pages_set.all %}
                     <a href="#" style="text-decoration: none;">
                         <div class="row col-md-12">
@@ -146,65 +149,53 @@
                         {% endfor %}
                         {% endif %}
 
-            <a href="#" style="text-decoration: none;">
-                <div class="row col-md-12">
-                    <div class="col-12">
-                        <div class="card  shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters ">
-                                    <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                        ЗАВЕРШАЮЩИЙ ЭКРАН
+                        <form method="post" action="{% url 'surveys:survey_add_page' pk=object.pk %}">
+                            {% csrf_token %}
+
+                            {{ form.as_p}}
+                            <button type="submit">
+                                СОХРАНИТЬ
+                            </button>
+                        </form>
+
+
+                        <a href="{% url 'surveys:bye' pk=survey.id %}" style="text-decoration: none;">
+                            <div class="row col-md-12">
+                                <div class="col-12">
+                                    <div class="card  shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters ">
+                                                <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                                    ЗАВЕРШАЮЩИЙ ЭКРАН
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+
+                            <a href="#" style="text-decoration: none;">
+                                <div class="row col-md-12">
+                                    <div class="col-12">
+                                        <div class="card  shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters ">
+                                                    <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                                        + ДОБАВИТЬ СТРАНИЦУ
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
-                                <hr>
-                                <div class="card  shadow h-80 py-2">
-                                    <div class="card-body">
-                                        <form method="post" enctype="multipart/form-data">
-                                            {% csrf_token %}
-
-                                            {% for field in form %}
-                                            {% for error in field.errors %}
-                                            {{error}}
-                                            {% endfor %}
-                                            <p>{{field.label_tag}}</p>
-                                            <p>{{field}}</p>
-                                            {% endfor %}
-                                            <button type="submit" class="btn btn-alert" style="text-align:center;">
-                                                <a href="{% url 'surveys:survey' pk=survey.id %}">ОТМЕНИТЬ</a>
-                                            </button>
-                                            <button type="submit" class="btn btn-primary btn-user">
-                                                СОХРАНИТЬ
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
 
 
-                <a href="#" style="text-decoration: none;">
-                    <div class="row col-md-12">
-                        <div class="col-12">
-                            <div class="card  shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters ">
-                                        <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                            + ДОБАВИТЬ СТРАНИЦУ
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-
-
-                    <!-- Content Row -->
+                                <!-- Content Row -->
         </div>
         <!-- /.container-fluid -->
 

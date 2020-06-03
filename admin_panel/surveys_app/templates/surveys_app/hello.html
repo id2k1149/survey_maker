@@ -152,6 +152,27 @@
                     </div>
                     <br>
 
+                    {% if survey.has_pages %}
+                    {% for item in survey.pages_set.all %}
+                    <a href="#" style="text-decoration: none;">
+                        <div class="row col-md-12">
+                            <div class="col-12">
+                                <div class="card  shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters ">
+                                            <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                                СТРАНИЦА {{ item.page_number }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        {% endfor %}
+                        {% endif %}
+
                     <a href="#" style="text-decoration: none;">
                         <div class="row col-md-12">
                             <div class="col-12">
