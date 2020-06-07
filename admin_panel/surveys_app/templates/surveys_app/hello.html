@@ -151,8 +151,8 @@
                         </div>
                     </div>
                     <br>
-
-                    {% if survey.has_pages %}
+ {% if survey.pages_set.all|length %}
+ {% if survey.pages_set.all.size > 0 %}
                     {% for item in survey.pages_set.all %}
                     <a href="#" style="text-decoration: none;">
                         <div class="row col-md-12">
@@ -161,7 +161,7 @@
                                     <div class="card-body">
                                         <div class="row no-gutters ">
                                             <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                                СТРАНИЦА {{ item.page_number }}
+                                                СТРАНИЦА {{ forloop.counter }} {{ item.page_number }}
                                             </div>
                                         </div>
 

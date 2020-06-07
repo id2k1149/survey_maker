@@ -36,8 +36,6 @@ class Survey(MPTTModel):
     answers_counter = models.PositiveIntegerField(null=True, blank=True)
     language = models.ManyToManyField(Language, blank=True,  default='1')
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-    total_pages = models.SmallIntegerField(default=0)
-    has_pages = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Опрос'
@@ -55,7 +53,7 @@ class ReturnCode(models.Model):
 
 class Pages(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True)
-    page_name = models.TextField(max_length=128, null=True, blank=True)
+    page_name = models.CharField(max_length=32, null=True, blank=True)
     page_help = models.TextField(max_length=128, null=True, blank=True)
 
     class Meta:

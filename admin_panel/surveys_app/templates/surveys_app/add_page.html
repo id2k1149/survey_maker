@@ -128,7 +128,7 @@
                     </div>
                     <br>
 
-                    {% if survey.has_pages %}
+                     {% if survey.pages_set.all|length %}
                     {% for item in survey.pages_set.all %}
                     <a href="#" style="text-decoration: none;">
                         <div class="row col-md-12">
@@ -137,7 +137,7 @@
                                     <div class="card-body">
                                         <div class="row no-gutters ">
                                             <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                                СТРАНИЦА {{ item.page_number }}
+                                                СТРАНИЦА {{ forloop.counter }} {{ item.page_number }}
                                             </div>
                                         </div>
 
@@ -149,14 +149,34 @@
                         {% endfor %}
                         {% endif %}
 
-                        <form method="post" action="{% url 'surveys:survey_add_page' pk=object.pk %}">
-                            {% csrf_token %}
+                        <div class="row col-md-12">
+                            <div class="col-12">
+                                <div class="card  shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters ">
+                                            <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                                НОВАЯ СТРАНИЦА
+                                            </div>
+                                        </div>
+                                              <hr>
+                                        <form method="post" action="{% url 'surveys:survey_add_page' pk=object.pk %}">
+                                            {% csrf_token %}
 
-                            {{ form.as_p}}
-                            <button type="submit">
-                                СОХРАНИТЬ
-                            </button>
-                        </form>
+                                             {% for field in form %}
+                                            {% for error in field.errors %}
+                                            {{error}}
+                                            {% endfor %}
+                                            <p>{{field.label_tag}}</p>
+                                            <p>{{field}}</p>
+                                            {% endfor %}
+                                            <button type="submit">
+                                                СОХРАНИТЬ
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                         <a href="{% url 'surveys:bye' pk=survey.id %}" style="text-decoration: none;">

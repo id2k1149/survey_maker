@@ -3,23 +3,27 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
 from .models import Survey, Pages
-from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm
+from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm, QuestionForm
 from formtools.wizard.views import SessionWizardView
 
 
 # Create your views here.
-# def hello(request):
-#     if request.method == 'GET':
-#         form = HelloForm()
-#         return render(request, 'surveys_app/hello.html', context={'form': form})
-#     else:
-#         form = HelloForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse('surveys:survey'))
-#         else:
-#             return render(request, 'surveys_app/hello.html', context={'form': form})
+class PageDeleteView(DeleteView):
+    model = Pages
+    success_url = reverse_lazy('')
+
+    def post(self, request, *args, **kwargs):
+        self.survey_name = Pages.objects.get(id=kwargs['pk']).survey
+        self.survey_id = Survey.objects.get(name=self.survey_name).id
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('surveys:survey', kwargs={'pk': self.survey_id})
+
+    def delete(self, request, *args, **kwargs):
+        return super(DeleteView, self).delete(request,  *args, **kwargs)
 
 
 # ListView
@@ -43,9 +47,24 @@ class FormWizardView(LoginRequiredMixin, SessionWizardView):
 
 
 # SurveyDetailView
-class SurveyDetailView(LoginRequiredMixin,  DetailView):
+class SurveyDetailView(LoginRequiredMixin, DetailView):
     model = Survey
     template_name = 'surveys_app/survey.html'
+
+
+class Survey2AddPageCreateView(LoginRequiredMixin, CreateView):
+    model = Pages
+    template_name = 'surveys_app/add_page2.html'
+    success_url = '/'
+
+    def post(self, request, *args, **kwargs):
+        self.survey_pk = kwargs['pk']
+        print("self.survey_pk =", self.survey_pk)
+        Pages.qbjects.all().filter(survey=self.survey_pk).create()
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('surveys:survey', kwargs={'pk': self.survey_pk})
 
 
 class SurveyAddPageView(LoginRequiredMixin, DetailView):
@@ -117,11 +136,3 @@ class ByeUpdateView(LoginRequiredMixin,  UpdateView):
 
     def get_success_url(self):
         return reverse('surveys:survey', kwargs={'pk': self.survey_id})
-
-
-
-
-
-
-
-
