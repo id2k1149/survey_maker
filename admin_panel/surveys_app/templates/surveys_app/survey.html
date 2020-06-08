@@ -140,14 +140,14 @@
                         <div class="card-body row">
 
                             <!--                                <div class="row no-gutters ">-->
-                            <a href="#" style="text-decoration: none;"
+                            <a href="{% url 'surveys:edit_page' pk=survey.id %}" style="text-decoration: none;"
                                class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
                                 <!--                                    <div class="col-md-6 font-weight-bold text-primary text-uppercase mb-1">-->
                                 СТРАНИЦА {{ forloop.counter }} {{ item.page_name }} {{ item.pk}} {{ item.survey}}
                                 <!--                                    </div>-->
                             </a>
                             <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
-                                <form method="post" action="{% url 'surveys:delete' pk=item.id %}" >
+                                <form method="post" action="{% url 'surveys:del_page' pk=item.id %}" >
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fa fa-trash-alt">{{ item.id}} {{ survey.id}}</i>
@@ -186,34 +186,24 @@
             </a>
             <br>
 
-
-            <a href="{% url 'surveys:add_page' pk=survey.id %}" style="text-decoration: none;">
-                <div class="row col-md-12">
-                    <div class="col-12">
-                        <div class="card  shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters ">
-                                    <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                        + ДОБАВИТЬ СТРАНИЦУ
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <br>
-
-             <a href="{% url 'surveys:add_page2' pk=survey.id %}" style="text-decoration: none;">
             <div class="row col-md-12">
                 <div class="col-12">
                     <div class="card  shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters ">
-                                <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                    + ДОБАВИТЬ СТРАНИЦУ 2
+                                <div class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
+                                    + ДОБАВИТЬ СТРАНИЦУ
                                 </div>
+                                <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
+                                <form method="post" action="{% url 'surveys:add' pk=survey.id %}" >
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success">
+
+                                        <i class="fa fa-plus-square"> surv_id={{ survey.id}}</i>
+                                    </button>
+                                </form>
+                            </div>
+
                             </div>
 
                         </div>

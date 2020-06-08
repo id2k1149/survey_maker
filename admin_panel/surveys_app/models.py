@@ -52,9 +52,9 @@ class ReturnCode(models.Model):
 
 
 class Pages(models.Model):
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True)
-    page_name = models.CharField(max_length=32, null=True, blank=True)
-    page_help = models.TextField(max_length=128, null=True, blank=True)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    page_name = models.CharField(max_length=32,  blank=True)
+    page_help = models.TextField(max_length=128, blank=True)
 
     class Meta:
         verbose_name = 'Страница'

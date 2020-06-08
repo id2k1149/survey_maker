@@ -120,6 +120,14 @@
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.end_date }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >pk = {{ item.pk }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >id = {{ item.id }}</div>
+                        <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
+                                <form method="post" action="{% url 'surveys:del_survey' pk=item.id %}" >
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa fa-trash-alt"> {{ item.id}}</i>
+                                    </button>
+                                </form>
+                            </div>
                     </div>
 
                 </div>

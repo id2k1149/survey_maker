@@ -28,11 +28,11 @@ class StepThreeForm(forms.ModelForm):
 
 class PageForm(forms.ModelForm):
 
-    page_name = forms.CharField(label='ЗАГОЛОВОК',
-                                widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
-
-    page_help = forms.CharField(label='ПОМОЩЬ',
-                                widget=forms.Textarea(attrs={'class': "form-control rounded-0"}))
+    # page_name = forms.CharField(label='ЗАГОЛОВОК',
+    #                             widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
+    #
+    # page_help = forms.CharField(label='ПОМОЩЬ',
+    #                             widget=forms.Textarea(attrs={'class': "form-control rounded-0"}))
 
     class Meta:
         model = Pages
@@ -44,4 +44,11 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = '__all__'
+
+
+class PageForm2(forms.ModelForm):
+
+    class Meta:
+        model = Pages
+        fields = [ ]
 

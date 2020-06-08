@@ -128,7 +128,7 @@
                     </div>
                     <br>
 
-                     {% if survey.pages_set.all|length %}
+                    {% if survey.pages_set.all|length %}
                     {% for item in survey.pages_set.all %}
                     <a href="#" style="text-decoration: none;">
                         <div class="row col-md-12">
@@ -139,6 +139,14 @@
                                             <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
                                                 СТРАНИЦА {{ forloop.counter }} {{ item.page_number }}
                                             </div>
+                                            <form method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+
+                                                {{ form.as_p}}
+                                                <button type="submit">
+                                                    СОХРАНИТЬ
+                                                </button>
+                                            </form>
                                         </div>
 
                                     </div>
@@ -158,21 +166,6 @@
                                                 НОВАЯ СТРАНИЦА
                                             </div>
                                         </div>
-                                              <hr>
-                                        <form method="post" action="{% url 'surveys:survey_add_page' pk=object.pk %}">
-                                            {% csrf_token %}
-
-                                             {% for field in form %}
-                                            {% for error in field.errors %}
-                                            {{error}}
-                                            {% endfor %}
-                                            <p>{{field.label_tag}}</p>
-                                            <p>{{field}}</p>
-                                            {% endfor %}
-                                            <button type="submit">
-                                                СОХРАНИТЬ
-                                            </button>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
