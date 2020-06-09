@@ -11,7 +11,7 @@ from formtools.wizard.views import SessionWizardView
 
 # Create your views here.
 # удаление страницы - работает
-class PageDeleteView(DeleteView):
+class PageDeleteView(LoginRequiredMixin, DeleteView):
     model = Pages
     success_url = reverse_lazy('')
 
@@ -27,7 +27,7 @@ class PageDeleteView(DeleteView):
 
 
 # удаление опроса - работает
-class SurveyDeleteView(DeleteView):
+class SurveyDeleteView(LoginRequiredMixin, DeleteView):
     model = Survey
     success_url = reverse_lazy('surveys:surveys')
 
@@ -55,7 +55,7 @@ class FormWizardView(LoginRequiredMixin, SessionWizardView):
         return HttpResponseRedirect(reverse("surveys:surveys"))
 
 
-# SurveyDetailView - отделный опрос
+# SurveyDetailView - отдельный опрос - работает
 class SurveyDetailView(LoginRequiredMixin, DetailView):
     model = Survey
     template_name = 'surveys_app/survey.html'
@@ -81,6 +81,21 @@ class AddPageCreateView(LoginRequiredMixin, CreateView):
         return reverse('surveys:survey', kwargs={'pk': self.survey_pk})
 
 
+class PageUpdateView(LoginRequiredMixin, UpdateView):
+    model = Pages
+    template_name = 'surveys_app/page.html'
+    fields = ('page_name', 'page_help',)
+    # success_url = reverse_lazy('surveys:survey')
+    success_url = reverse_lazy('')
+
+    def post(self, request, *args, **kwargs):
+        self.survey_id = Pages.objects.get(id=kwargs['pk']).survey.id
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('surveys:survey', kwargs={'pk': self.survey_id})
+
+
 # редактирование страницы шаг 1
 # class SurveyUpdatePageView(LoginRequiredMixin, DetailView):
 #     model = Survey
@@ -93,22 +108,22 @@ class AddPageCreateView(LoginRequiredMixin, CreateView):
 
 
 # редактирование страницы шаг 2
-class SurveyUpdatePageUpdateView(LoginRequiredMixin, UpdateView):
-    model = Pages
-    template_name = 'surveys_app/edit_page.html'
-    success_url = '/'
-
-    def post(self, request, *args, **kwargs):
-        self.survey_pk = kwargs['pk']
-        return super().post(request, *args, **kwargs)
+# class SurveyUpdatePageUpdateView(LoginRequiredMixin, UpdateView):
+#     model = Pages
+#     template_name = 'surveys_app/edit_page.html'
+#     success_url = '/'
+#
+#     def post(self, request, *args, **kwargs):
+#         self.survey_pk = kwargs['pk']
+#         return super().post(request, *args, **kwargs)
 
     # def form_valid(self, form):
     #     survey = get_object_or_404(Survey, pk=self.survey_pk)
     #     form.instance.survey = survey
     #     return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse('surveys:survey', kwargs={'pk': self.survey_pk})
+    # def get_success_url(self):
+    #     return reverse('surveys:survey', kwargs={'pk': self.survey_pk})
 
 
 # приветствие

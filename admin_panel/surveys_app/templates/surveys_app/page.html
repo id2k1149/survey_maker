@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load mptt_tags %}
-{% block title %} Карточка компании {% endblock %}
+{% block title %}  {% endblock %}
 
 {% block content %}
 <!-- Content Wrapper -->
@@ -80,28 +80,17 @@
 
             <!--          <i class="fa fa-sitemap"> Компания</i>-->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">{{ survey.name }} </h1>
+                <h1 class="h3 mb-0 text-gray-800">{{ object.survey.name }} {{ object.survey.id }}  </h1>
                 <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
             </div>
 
-
-            <!--    <div class="d-sm-flex align-items-center justify-content-between mb-4">-->
-            <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">-->
-            <!--&lt;!&ndash;               <a href="{% url 'companies:company_add_department' pk=object.pk %}"&ndash;&gt;-->
-
-            <!--            <i class="fas fa-sm text-white-50"></i>-->
-            <!--            Добавить </a>-->
-            <!--    </div>-->
-
-
-
-                <div class="row col-md-12">
+            <div class="row col-md-12">
                     <div class="col-12">
                         <div class="card  shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters ">
                                     <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                        ПРИВЕТСТВИЕ
+                                         СТРАНИЦА  {{ object.page_name }} {{ object.pk}} {{ survey_id }}
                                     </div>
                                 </div>
                                 <br>
@@ -118,7 +107,7 @@
                                             <p>{{field}}</p>
                                             {% endfor %}
                                             <button type="submit" class="btn btn-alert" style="text-align:center;">
-                                                <a href="{% url 'surveys:survey' pk=survey.id %}">ОТМЕНИТЬ</a>
+                                                <a href="{% url 'surveys:survey' pk=object.survey.id %}">ОТМЕНИТЬ</a>
                                             </button>
                                             <button type="submit" class="btn btn-primary btn-user">
                                                 СОХРАНИТЬ
@@ -132,86 +121,11 @@
                     </div>
                 </div>
                 <br>
-
-
-                <a href="#" style="text-decoration: none;">
-                    <div class="row col-md-12">
-                        <div class="col-12">
-                            <div class="card  shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters ">
-                                        <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                            ИНФОРМАЦИЯ
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
- {% if survey.pages_set.all|length %}
- {% if survey.pages_set.all.size > 0 %}
-                    {% for item in survey.pages_set.all %}
-                    <a href="#" style="text-decoration: none;">
-                        <div class="row col-md-12">
-                            <div class="col-12">
-                                <div class="card  shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters ">
-                                            <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                                СТРАНИЦА {{ forloop.counter }} {{ item.page_number }}
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        {% endfor %}
-                        {% endif %}
-
-                    <a href="#" style="text-decoration: none;">
-                        <div class="row col-md-12">
-                            <div class="col-12">
-                                <div class="card  shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters ">
-                                            <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                                ЗАВЕРШАЮЩИЙ ЭКРАН
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-
-                        <a href="#" style="text-decoration: none;">
-                            <div class="row col-md-12">
-                                <div class="col-12">
-                                    <div class="card  shadow h-100 py-2">
-                                        <div class="card-body">
-                                            <div class="row no-gutters ">
-                                                <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                                    + ДОБАВИТЬ СТРАНИЦУ
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-
-
-                            <!-- Content Row -->
         </div>
-        <!-- /.container-fluid -->
+        <!-- Content Row -->
+    </div>
+    <!-- /.container-fluid -->
 
-        {% endblock %}
-
+    {% endblock %}
+</div>
 

@@ -140,7 +140,7 @@
                         <div class="card-body row">
 
                             <!--                                <div class="row no-gutters ">-->
-                            <a href="{% url 'surveys:edit_page' pk=survey.id %}" style="text-decoration: none;"
+                            <a href="{% url 'surveys:page' pk=item.pk %}" style="text-decoration: none;"
                                class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
                                 <!--                                    <div class="col-md-6 font-weight-bold text-primary text-uppercase mb-1">-->
                                 СТРАНИЦА {{ forloop.counter }} {{ item.page_name }} {{ item.pk}} {{ item.survey}}
