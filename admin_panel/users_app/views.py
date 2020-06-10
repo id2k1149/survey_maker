@@ -31,7 +31,6 @@ class UsersListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *args, **kwargs):
         """
-
         :param object_list:
         :param kwargs:
         :return:

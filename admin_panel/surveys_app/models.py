@@ -52,9 +52,23 @@ class ReturnCode(models.Model):
 
 
 class Pages(models.Model):
+    number = models.SmallIntegerField(null=True, blank=True)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
     page_name = models.CharField(max_length=32,  blank=True)
-    page_help = models.TextField(max_length=128, blank=True)
+    page_help = models.CharField(max_length=128, blank=True)
+
+    def page_number(self):
+        pages = Pages.objects.filter(survey=self.survey)
+        i = 1
+        for page in pages:
+            page.number = i
+            page.save()
+            i += 1
+        return self.number
+
+    def get_questions(self):
+        questions = self.question_set.all()
+        return questions
 
     class Meta:
         verbose_name = 'Страница'
@@ -62,7 +76,7 @@ class Pages(models.Model):
 
 
 class QuestionType(models.Model):
-    question_type_name = models.CharField(max_length=64)
+    question_type_name = models.CharField(max_length=16)
 
     class Meta:
         verbose_name = 'Тип вопроса'
@@ -83,9 +97,6 @@ class Question(MPTTModel):
     class Meta:
         verbose_name = 'Вопрос'
         verbose_name_plural = 'вопросы'
-
-    def __str__(self):
-        return self.question_type
 
 
 class Answer(models.Model):

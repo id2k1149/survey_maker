@@ -80,57 +80,48 @@
 
             <!--          <i class="fa fa-sitemap"> Компания</i>-->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800"> ОПРОС {{ object.survey.name }} {{ object.survey.id }} </h1>
+                <h1 class="h3 mb-0 text-gray-800">{{ object.survey.name }} {{ object.survey.id }}  </h1>
                 <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
             </div>
 
-
             <div class="row col-md-12">
-                <div class="col-12">
-                    <div class="card  shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters ">
-                                <div class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
-                                    СТРАНИЦА #{{ object.page_number }} {{ object.page_name }} {{ object.pk}}
+                    <div class="col-12">
+                        <div class="card  shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters ">
+                                    <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                         СТРАНИЦА #{{ object.page_number }} {{ object.page_name }} {{ object.pk}} {{ survey_id }}
+                                    </div>
                                 </div>
-                                <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
-                                    <form method="post" action="{% url 'surveys:del_page' pk=object.id %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </button>
-                                    </form>
+                                <br>
+                                <hr>
+                                <div class="card  shadow h-80 py-2">
+                                    <div class="card-body">
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {% for field in form %}
+                                            {% for error in field.errors %}
+                                            {{error}}
+                                            {% endfor %}
+                                            <p>{{field.label_tag}}</p>
+                                            <p>{{field}}</p>
+                                            {% endfor %}
+                                            <button type="submit" class="btn btn-alert" style="text-align:center;">
+                                                <a href="{% url 'surveys:survey' pk=object.survey.id %}">ОТМЕНИТЬ</a>
+                                            </button>
+                                            <button type="submit" class="btn btn-primary btn-user">
+                                                СОХРАНИТЬ
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="col-md-1 ">
-                                    <a href="{% url 'surveys:upd_page' pk=object.id %}">
-                                        <i class="fa  fa-edit text-gray-400 fa-2x"></i>
 
-                                    </a>
-
-                                </div>
                             </div>
-                            <br>
-                            <hr>
-                            <div class="card  shadow h-80 py-2">
-                                <div class="card-body">
-
-                                    {% for item in object.question_set.all %}
-                                    вопрос - {{ item.question_text }} {{ item.question_type }}
-                                     <hr>
-                                    {% endfor %}
-                                     <hr>
-
-
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
-            <br>
+                <br>
         </div>
-
         <!-- Content Row -->
     </div>
     <!-- /.container-fluid -->

@@ -81,9 +81,14 @@ class AddPageCreateView(LoginRequiredMixin, CreateView):
         return reverse('surveys:survey', kwargs={'pk': self.survey_pk})
 
 
-class PageUpdateView(LoginRequiredMixin, UpdateView):
+class PageDetailView(LoginRequiredMixin, DetailView):
     model = Pages
     template_name = 'surveys_app/page.html'
+
+
+class PageUpdateView(LoginRequiredMixin, UpdateView):
+    model = Pages
+    template_name = 'surveys_app/upd_page.html'
     fields = ('page_name', 'page_help',)
     # success_url = reverse_lazy('surveys:survey')
     success_url = reverse_lazy('')

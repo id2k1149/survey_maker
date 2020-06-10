@@ -130,7 +130,7 @@
             </a>
             <br>
             {% with all_pages=survey.pages_set.all %}
-            {% if all_pages %}
+<!--            {% if all_pages %}-->
             {% for item in all_pages %}
 
             <!--            <a href="#" style="text-decoration: none;">-->
@@ -140,12 +140,15 @@
                         <div class="card-body row">
 
                             <!--                                <div class="row no-gutters ">-->
+
                             <a href="{% url 'surveys:page' pk=item.pk %}" style="text-decoration: none;"
                                class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
-                                <!--                                    <div class="col-md-6 font-weight-bold text-primary text-uppercase mb-1">-->
-                                СТРАНИЦА {{ forloop.counter }} {{ item.page_name }} {{ item.pk}} {{ item.survey}}
-                                <!--                                    </div>-->
+
+                                СТРАНИЦА {{ forloop.counter }}  {{ item.page_name }} {{ item.pk}} {{ item.survey}}
+                                <div style="display:none;">{{ item.page_number }}</div>
+
                             </a>
+
                             <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
                                 <form method="post" action="{% url 'surveys:del_page' pk=item.id %}" >
                                     {% csrf_token %}
@@ -164,7 +167,7 @@
             <!--            </a>-->
             <br>
             {% endfor %}
-            {% endif %}
+<!--            {% endif %}-->
             {% endwith %}
 
 

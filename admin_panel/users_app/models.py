@@ -54,5 +54,6 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
-        ordering = ["last_name"]
+        # ordering = ["last_name"]
+        ordering = ["email"]
 

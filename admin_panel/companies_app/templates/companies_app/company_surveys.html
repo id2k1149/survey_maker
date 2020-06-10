@@ -112,10 +112,11 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h3 class="h3 mb-0 text-gray-800">ОПРОСЫ:</h3>
-            <a href="{% url 'companies:company_add_department' pk=object.pk %}"
+        <a href="{% url 'surveys:add_survey' %}"
            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-sm text-white-50"></i>
-            Добавить подразделение</a>
+            ДОБАВИТЬ ОПРОС</a>
+
     </div>
 
     {% for item in company.survey_set.all %}
