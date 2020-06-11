@@ -58,7 +58,7 @@ class CompanySearchView(ListView):
 # DetailView with users
 class CompanyDetailView(LoginRequiredMixin, DetailView):
     model = Company
-    template_name = 'companies_app/company.html'
+    template_name = 'companies_app/users.html'
 
 
 # DetailView with departments
@@ -70,7 +70,7 @@ class CompanyDepartmentsDetailView(LoginRequiredMixin,  DetailView):
 # DetailView with surveys
 class CompanySurveysDetailView(LoginRequiredMixin,  DetailView):
     model = Company
-    template_name = 'companies_app/company_surveys.html'
+    template_name = 'companies_app/surveys.html'
 
 
 # DetailView with add department

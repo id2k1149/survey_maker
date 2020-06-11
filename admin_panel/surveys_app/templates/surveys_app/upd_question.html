@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load mptt_tags %}
-{% block title %} Карточка компании {% endblock %}
+{% block title %}  {% endblock %}
 
 {% block content %}
 <!-- Content Wrapper -->
@@ -77,90 +77,55 @@
 
 
             <!-- Page Heading -->
-            <div>
-                {% if company.logo %}
 
-                <div>
-                    <i class="fa">
-                        <img src="{{company.logo.url}}" width="40"> Карточка компании
-                        <a class="collapse-item" href="{% url 'companies:companies' %}">
-                            <i class="fa fa-ellipsis-v"> </i>
-                        </a>
-                    </i>
-                </div>
-
-                {% else %}
-                <i class="fa fa-sitemap"> Карточка компании</i>
-                <i class="fa fa-ellipsis-v"></i>
-                {% endif %}
-                <a href="{% url 'companies:update' pk=object.id  %}"
-                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-sm text-white-50"></i>
-                    редактировать КОМПАНИЮ</a>
-                <a href="{% url 'companies:confirm_delete' pk=object.id  %}"
-                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-sm text-white-50"></i>
-                    удалить КОМПАНИЮ</a>
-
-            </div>
             <!--          <i class="fa fa-sitemap"> Компания</i>-->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">{{ company.name }}</h1>
+<!--                <h1 class="h3 mb-0 text-gray-800">{{ object.survey.name }} {{ object.survey.id }}  </h1>-->
                 <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
             </div>
 
-
-            <div class="row justify-content-center">
-                <div class="col-lg-7 mb-5">
-                    {{ object.pk }}
-                    <form method="post" action="{% url 'companies:add_department' pk=object.pk %}" class="p-5 bg-white">
-                        <h2 class="h4 text-black mb-5">Добавление подразделения</h2>
-                        <div class="text-black">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-<!--                                <input type="submit" value="Добавить" class="btn btn-primary mr-2 mb-2">-->
-                                <button type="submit">Добавить</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <ul class="root">
-                {% recursetree company.department_set.all %}
-                <li style="list-style-type: none; ">
-                    <div class="col-12 fa-1x">
-                        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="row col-md-12">
+                    <div class="col-12">
+                        <div class="card  shadow h-100 py-2">
                             <div class="card-body">
-                                <div class="row no-gutters">
-                                    <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
-                                        <i class="fas fa-level-up-alt"
-                                           style="transform: rotate(90deg); color:gray; margin-right: 10px"></i>
-                                        {{ node.department_name }}
-                                    </div>
-                                    <div class="col-md-3 font-weight-bold   mb-1" style="color:gray;">
-                                        <i class="fas fa-user"
-                                           style="color:gray; margin-right: 10px; margin-left: 10px"></i>
-                                        {{ node.head_of_department }}
+                                <div class="row no-gutters ">
+                                    <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                         СТРАНИЦА #{{ object.page.number }} page={{ object.page.id }} pk={{ object.pk}}
                                     </div>
                                 </div>
+                                <br>
+                                <hr>
+                                <div class="card  shadow h-80 py-2">
+                                    <div class="card-body">
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {% for field in form %}
+                                            {% for error in field.errors %}
+                                            {{error}}
+                                            {% endfor %}
+                                            <p>{{field.label_tag}}</p>
+                                            <p>{{field}}</p>
+                                            {% endfor %}
+                                            <button type="submit" class="btn btn-alert" style="text-align:center;">
+                                                <a href="{% url 'surveys:page' pk=object.page.id %}">ОТМЕНИТЬ</a>
+                                            </button>
+                                            <button type="submit" class="btn btn-primary btn-user">
+                                                СОХРАНИТЬ
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <br>
-                    {% if not node.is_leaf_node %}
-                    <ul class="children">
-                        {{ children }}
-                    </ul>
-                    {% endif %}
-                </li>
-                {% endrecursetree %}
-            </ul>
-            <!-- Content Row -->
+                </div>
+                <br>
         </div>
-        <!-- /.container-fluid -->
+        <!-- Content Row -->
+    </div>
+    <!-- /.container-fluid -->
 
-        {% endblock %}
+    {% endblock %}
+</div>
+

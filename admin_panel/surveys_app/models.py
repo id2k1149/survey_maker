@@ -76,7 +76,7 @@ class Pages(models.Model):
 
 
 class QuestionType(models.Model):
-    question_type_name = models.CharField(max_length=16)
+    question_type_name = models.CharField(max_length=24)
 
     class Meta:
         verbose_name = 'Тип вопроса'
@@ -88,8 +88,8 @@ class QuestionType(models.Model):
 
 class Question(MPTTModel):
     question_type = models.ForeignKey(QuestionType, on_delete=models.CASCADE)
-    question_text = models.TextField(max_length=128, null=True, blank=True)
-    question_help = models.TextField(max_length=128, null=True, blank=True)
+    question_text = models.CharField(max_length=128, null=True, blank=True)
+    question_help = models.CharField(max_length=128, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to='question_image')
     page = models.ForeignKey(Pages, on_delete=models.CASCADE, blank=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')

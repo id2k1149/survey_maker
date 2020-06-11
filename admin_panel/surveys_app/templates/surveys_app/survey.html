@@ -129,45 +129,35 @@
                 </div>
             </a>
             <br>
-            {% with all_pages=survey.pages_set.all %}
-<!--            {% if all_pages %}-->
-            {% for item in all_pages %}
 
-            <!--            <a href="#" style="text-decoration: none;">-->
+
+            {% with all_pages=survey.pages_set.all %}
+            {% for item in all_pages %}
             <div class="row col-md-12">
                 <div class="col-12">
                     <div class="card  shadow h-100 py-2">
                         <div class="card-body row">
 
-                            <!--                                <div class="row no-gutters ">-->
-
                             <a href="{% url 'surveys:page' pk=item.pk %}" style="text-decoration: none;"
                                class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
-
-                                СТРАНИЦА {{ forloop.counter }}  {{ item.page_name }} {{ item.pk}} {{ item.survey}}
+                                СТРАНИЦА {{ forloop.counter }} {{ item.page_name }} {{ item.pk}} {{ item.survey}}
                                 <div style="display:none;">{{ item.page_number }}</div>
-
                             </a>
 
                             <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
-                                <form method="post" action="{% url 'surveys:del_page' pk=item.id %}" >
+                                <form method="post" action="{% url 'surveys:del_page' pk=item.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fa fa-trash-alt">{{ item.id}} {{ survey.id}}</i>
                                     </button>
                                 </form>
                             </div>
-                            <!--                                </div>-->
-
-
                         </div>
                     </div>
                 </div>
             </div>
-            <!--            </a>-->
             <br>
             {% endfor %}
-<!--            {% endif %}-->
             {% endwith %}
 
 
@@ -181,12 +171,12 @@
                                         ЗАВЕРШАЮЩИЙ ЭКРАН
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </a>
+
             <br>
 
             <div class="row col-md-12">
@@ -198,17 +188,14 @@
                                     + ДОБАВИТЬ СТРАНИЦУ
                                 </div>
                                 <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
-                                <form method="post" action="{% url 'surveys:add' pk=survey.id %}" >
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-success">
-
-                                        <i class="fa fa-plus-square"> surv_id={{ survey.id}}</i>
-                                    </button>
-                                </form>
+                                    <form method="post" action="{% url 'surveys:add' pk=survey.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fa fa-plus-square"> surv_id={{ survey.id}}</i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-
-                            </div>
-
                         </div>
                     </div>
                 </div>

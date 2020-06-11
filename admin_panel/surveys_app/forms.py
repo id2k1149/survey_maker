@@ -43,12 +43,11 @@ class QuestionForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = '__all__'
+        exclude = ('page', 'parent', 'image', )
 
 
 class PageForm2(forms.ModelForm):
 
     class Meta:
         model = Pages
-        fields = [ ]
-
+        fields = []

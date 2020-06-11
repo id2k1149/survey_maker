@@ -96,29 +96,86 @@
                                 <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
                                     <form method="post" action="{% url 'surveys:del_page' pk=object.id %}">
                                         {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="submit"
+                                                class="btn btn-danger"
+                                                style="
+                                                    display: flex;
+                                                    width:30px;
+                                                    height:30px;
+                                                    align-items:center;
+                                                    justify-content:center;">
                                             <i class="fa fa-trash-alt"></i>
                                         </button>
                                     </form>
                                 </div>
                                 <div class="col-md-1 ">
                                     <a href="{% url 'surveys:upd_page' pk=object.id %}">
-                                        <i class="fa  fa-edit text-gray-400 fa-2x"></i>
 
+                                        <i class="fa fa-pen-square text-gray-400 fa-2x"></i>
                                     </a>
-
                                 </div>
                             </div>
+
                             <br>
                             <hr>
-                            <div class="card  shadow h-80 py-2">
-                                <div class="card-body">
 
-                                    {% for item in object.question_set.all %}
-                                    вопрос - {{ item.question_text }} {{ item.question_type }}
-                                     <hr>
-                                    {% endfor %}
-                                     <hr>
+                            <div class="card  shadow h-80 py-2">
+
+                                <div class="card-body">
+                                    <div class="row col-md-12">
+                                        <div class="col-12">
+                                            <div class="row no-gutters ">
+
+                                            {% for item in object.question_set.all %}
+                                            <div class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
+                                                вопрос - {{ item.question_text }} {{ item.question_type }} {{ item.id }}
+                                            </div>
+                                            <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
+                                                <form method="post"
+                                                      action="{% url 'surveys:del_question' pk=item.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit"
+                                                            class="btn btn-danger"
+                                                            style="
+                                                    display: flex;
+                                                    width:30px;
+                                                    height:30px;
+                                                    align-items:center;
+                                                    justify-content:center;">
+                                                        <i class="fa fa-trash-alt">{# item.id #}</i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-1 ">
+                                                <a href="{% url 'surveys:upd_question' pk=item.id %}">
+                                                    <i class="fa  fa-pen-square text-gray-400 fa-2x"></i>
+                                                </a>
+                                            </div>
+
+
+                                            <hr>
+                                            {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-md-12">
+                                        <div class="col-12">
+                                            <div class="card  shadow h-100 py-2">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters ">
+                                                        <a href="{% url 'surveys:add_question' pk=object.id %}"
+                                                           style="text-decoration: none;">
+                                                            <i class="fas fa-sm text-white-50"></i>
+                                                            + ДОБАВИТЬ ВОПРОС
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br>
 
 
                                 </div>

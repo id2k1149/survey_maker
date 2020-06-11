@@ -4,12 +4,11 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Survey, Pages
-from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm, PageForm2
+from .models import Survey, Pages, Question, QuestionType
+from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm, PageForm2, QuestionForm
 from formtools.wizard.views import SessionWizardView
 
 
-# Create your views here.
 # удаление страницы - работает
 class PageDeleteView(LoginRequiredMixin, DeleteView):
     model = Pages
@@ -21,6 +20,21 @@ class PageDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('surveys:survey', kwargs={'pk': self.survey_id})
+
+    def delete(self, request, *args, **kwargs):
+        return super(DeleteView, self).delete(request,  *args, **kwargs)
+
+
+class QuestionDeleteView(LoginRequiredMixin, DeleteView):
+    model = Question
+    success_url = reverse_lazy('')
+
+    def post(self, request, *args, **kwargs):
+        self.page_id = Question.objects.get(id=kwargs['pk']).page.id
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('surveys:page', kwargs={'pk': self.page_id})
 
     def delete(self, request, *args, **kwargs):
         return super(DeleteView, self).delete(request,  *args, **kwargs)
@@ -90,7 +104,6 @@ class PageUpdateView(LoginRequiredMixin, UpdateView):
     model = Pages
     template_name = 'surveys_app/upd_page.html'
     fields = ('page_name', 'page_help',)
-    # success_url = reverse_lazy('surveys:survey')
     success_url = reverse_lazy('')
 
     def post(self, request, *args, **kwargs):
@@ -174,3 +187,49 @@ class ByeUpdateView(LoginRequiredMixin,  UpdateView):
 
     def get_success_url(self):
         return reverse('surveys:survey', kwargs={'pk': self.survey_id})
+
+
+class PageQuestionDetailView(LoginRequiredMixin, DetailView):
+    model = Pages
+    template_name = 'surveys_app/add_question.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = QuestionForm()
+        return context
+
+
+class QuestionCreateView(LoginRequiredMixin, CreateView):
+    model = Question
+    template_name = 'surveys_app/add_question2.html'
+    success_url = reverse_lazy('/')
+    form_class = QuestionForm
+
+    def post(self, request, *args, **kwargs):
+        self.page_pk = kwargs['pk']
+        print(self.page_pk)
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        print(self.request)
+        page = get_object_or_404(Pages, pk=self.page_pk)
+        form.instance.page = page
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('surveys:page', kwargs={'pk': self.page_pk})
+
+
+class QuestionUpdateView(LoginRequiredMixin, UpdateView):
+    model = Question
+    template_name = 'surveys_app/upd_question.html'
+    fields = ('question_type', 'question_text', 'question_help')
+    success_url = reverse_lazy('/')
+
+    def post(self, request, *args, **kwargs):
+        self.page_id = Question.objects.get(id=kwargs['pk']).page.id
+        print(self.page_id)
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('surveys:page', kwargs={'pk': self.page_id})
