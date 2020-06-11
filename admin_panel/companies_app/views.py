@@ -45,7 +45,7 @@ class CompaniesListView(LoginRequiredMixin, ListView):
     template_name = 'companies_app/companies.html'
 
 
-class CompanySearchView(ListView):
+class CompanySearchView(LoginRequiredMixin, ListView):
     model = Company
     template_name = 'companies_app/search_results.html'
 

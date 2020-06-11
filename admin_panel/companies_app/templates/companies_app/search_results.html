@@ -18,17 +18,7 @@
         </button>
 
         <!-- Topbar Search -->
-        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                       aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
+        РЕЗУЛЬТАТЫ ПОИСКА
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
@@ -75,10 +65,73 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+    <div class="row col-md-12">
+                {% for item in object_list %}
+                <!-- Companies Cards  -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-lg-2">
+                                    {% if item.logo %}
+                                    <img src="{{item.logo.url}}" width="40">
+                                    {% else %}
+                                    <i class="fas fa-sitemap fa-2x text-gray-300"> </i>
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-9" style="padding-left: 10px;">
+                                    <a href="{% url 'companies:surveys' pk=item.pk %}" style="text-decoration: none;">
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1">
+                                            {{ item.name }}
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
 
+                            <div class="row">
+                                <div class="col-4">
+                                    <a href="{% url 'companies:company_structure' pk=item.pk %}" style="text-decoration: none;">
+                                        <div class="row" style="color:black;">
+                                            <div class="col  text-center">
+                                                {{ item.department_set.all|length }}
+                                            </div>
+                                        </div>
+                                        <div class="row" style="color:gray;">
+                                            <div class="col d-flex justify-content-center text-center">Структуры</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="{% url 'companies:users' pk=item.pk %}" style="text-decoration: none;">
+                                        <div class="row" style="color:black;">
+                                            <div class="col  text-center">{{ item.user_set.all|length }}</div>
+                                        </div>
+                                        <div class="row" style="color:gray;">
+                                            <div class="col d-flex justify-content-center text-center">
+                                                Сотрудники
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="{% url 'companies:surveys' pk=item.pk %}" style="text-decoration: none;">
+                                    <div class="row" style="color:black;">
+                                        <div class="col  text-center">{{ item.survey_set.all|length }}</div>
+                                    </div>
+                                    <div class="row" style="color:gray;">
+                                        <div class="col d-flex justify-content-center text-center">
+                                            Опросы
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
 
-      {{ object_list }}
-    <!-- Content Row -->
 
 
 
