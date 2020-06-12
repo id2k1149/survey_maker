@@ -1,5 +1,5 @@
 from django import forms
-from .models import Survey, Pages, Question
+from .models import Survey, Pages, Question, Answer
 
 
 class StepOneForm(forms.Form):
@@ -43,7 +43,15 @@ class QuestionForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        exclude = ('page', 'parent', 'image', )
+        exclude = ('page', 'parent', 'image',)
+
+
+class AnswerForm(forms.ModelForm):
+
+    class Meta:
+        model = Answer
+        fields = ['name', ]
+
 
 
 class PageForm2(forms.ModelForm):

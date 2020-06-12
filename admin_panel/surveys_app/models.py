@@ -101,7 +101,7 @@ class Question(MPTTModel):
 
 class Answer(models.Model):
     name = models.CharField(max_length=64)
-    answer_type = models.ForeignKey(QuestionType, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     active_answer = models.BooleanField(default=False)
     radio_buttons = models.BooleanField(default=False)
     drop_down_list = models.BooleanField(default=False)

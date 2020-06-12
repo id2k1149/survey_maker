@@ -4,8 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Survey, Pages, Question, QuestionType
-from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm, PageForm2, QuestionForm
+from .models import Survey, Pages, Question, QuestionType, Answer
+from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm, PageForm2, QuestionForm, AnswerForm
 from formtools.wizard.views import SessionWizardView
 
 
@@ -233,3 +233,13 @@ class QuestionUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('surveys:page', kwargs={'pk': self.page_id})
+
+
+class QuestionAnswerDetailView(LoginRequiredMixin, DetailView):
+    model = Question
+    template_name = 'surveys_app/add_answer.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = AnswerForm()
+        return context

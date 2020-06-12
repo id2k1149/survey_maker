@@ -23,10 +23,12 @@ urlpatterns = [
     path('add/<int:pk>/', views.AddPageCreateView.as_view(), name='add'),
     path('del_page/<int:pk>/', views.PageDeleteView.as_view(), name='del_page'),
 
-    path('del_question/<int:pk>/', views.QuestionDeleteView.as_view(), name='del_question'),
     path('add_question/<int:pk>/', views.PageQuestionDetailView.as_view(), name='add_question'),
     path('add_question2/<int:pk>/', views.QuestionCreateView.as_view(), name='add_question2'),
     path('upd_question/<int:pk>/', views.QuestionUpdateView.as_view(), name='upd_question'),
+    path('del_question/<int:pk>/', views.QuestionDeleteView.as_view(), name='del_question'),
+
+    path('add_answer/<int:pk>/', views.QuestionAnswerDetailView.as_view(), name='add_answer'),
 
 
 
