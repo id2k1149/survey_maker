@@ -1,5 +1,5 @@
 from django import forms
-from .models import Survey, Pages, Question, Answer
+from .models import Survey, Pages, Question, Answer, MonoResponse
 
 
 class StepOneForm(forms.Form):
@@ -52,6 +52,12 @@ class AnswerForm(forms.ModelForm):
         model = Answer
         fields = ['name', ]
 
+
+class ResponseForm(forms.ModelForm):
+
+    class Meta:
+        model = MonoResponse
+        exclude = ('survey', )
 
 
 class PageForm2(forms.ModelForm):

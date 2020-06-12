@@ -129,7 +129,7 @@
                                             {% for item in object.question_set.all %}
                                             <div class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
                                                  <a href="{% url 'surveys:add_answer' pk=item.id  %}">
-                                                вопрос - {{ item.question_text }} {{ item.question_type }} {{ item.id }}
+                                                вопрос - {{ item.question_text }} ({{ item.question_type }} вопрос)
                                                      </a>
                                             </div>
                                             <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
@@ -144,7 +144,7 @@
                                                     height:30px;
                                                     align-items:center;
                                                     justify-content:center;">
-                                                        <i class="fa fa-trash-alt">{# item.id #}</i>
+                                                        <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </form>
                                             </div>

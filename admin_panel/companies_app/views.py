@@ -49,7 +49,7 @@ class CompanySearchView(LoginRequiredMixin, ListView):
     model = Company
     template_name = 'companies_app/search_results.html'
 
-    def get_queryset(self):  # new
+    def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = Company.objects.filter(Q(name__icontains=query))
         return object_list

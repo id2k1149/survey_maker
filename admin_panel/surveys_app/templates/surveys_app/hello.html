@@ -94,36 +94,53 @@
             <!--    </div>-->
 
 
+            <div class="row col-md-12">
+                <div class="col-12">
+                    <div class="card  shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters ">
+                                <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
+                                    ПРИВЕТСТВИЕ
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="card  shadow h-80 py-2">
+                                <div class="card-body">
+                                    <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {% for field in form %}
+                                        {% for error in field.errors %}
+                                        {{error}}
+                                        {% endfor %}
+                                        <p>{{field.label_tag}}</p>
+                                        <p>{{field}}</p>
+                                        {% endfor %}
+                                        <button type="submit" class="btn btn-alert" style="text-align:center;">
+                                            <a href="{% url 'surveys:survey' pk=survey.id %}">ОТМЕНИТЬ</a>
+                                        </button>
+                                        <button type="submit" class="btn btn-primary btn-user">
+                                            СОХРАНИТЬ
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+
+            <a href="#" style="text-decoration: none;">
                 <div class="row col-md-12">
                     <div class="col-12">
                         <div class="card  shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters ">
                                     <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                        ПРИВЕТСТВИЕ
-                                    </div>
-                                </div>
-                                <br>
-                                <hr>
-                                <div class="card  shadow h-80 py-2">
-                                    <div class="card-body">
-                                        <form method="post" enctype="multipart/form-data">
-                                            {% csrf_token %}
-                                            {% for field in form %}
-                                            {% for error in field.errors %}
-                                            {{error}}
-                                            {% endfor %}
-                                            <p>{{field.label_tag}}</p>
-                                            <p>{{field}}</p>
-                                            {% endfor %}
-                                            <button type="submit" class="btn btn-alert" style="text-align:center;">
-                                                <a href="{% url 'surveys:survey' pk=survey.id %}">ОТМЕНИТЬ</a>
-                                            </button>
-                                            <button type="submit" class="btn btn-primary btn-user">
-                                                СОХРАНИТЬ
-                                            </button>
-                                        </form>
+                                        ИНФОРМАЦИЯ
                                     </div>
                                 </div>
 
@@ -133,7 +150,8 @@
                 </div>
                 <br>
 
-
+                {% if survey.pages_set.all.size > 0 %}
+                {% for item in survey.pages_set.all %}
                 <a href="#" style="text-decoration: none;">
                     <div class="row col-md-12">
                         <div class="col-12">
@@ -141,7 +159,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters ">
                                         <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                            ИНФОРМАЦИЯ
+                                            СТРАНИЦА {{ forloop.counter }} {{ item.page_number }}
                                         </div>
                                     </div>
 
@@ -150,27 +168,8 @@
                         </div>
                     </div>
                     <br>
- {% if survey.pages_set.all|length %}
- {% if survey.pages_set.all.size > 0 %}
-                    {% for item in survey.pages_set.all %}
-                    <a href="#" style="text-decoration: none;">
-                        <div class="row col-md-12">
-                            <div class="col-12">
-                                <div class="card  shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters ">
-                                            <div class="col-md-12 font-weight-bold text-primary text-uppercase mb-1">
-                                                СТРАНИЦА {{ forloop.counter }} {{ item.page_number }}
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        {% endfor %}
-                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
 
                     <a href="#" style="text-decoration: none;">
                         <div class="row col-md-12">

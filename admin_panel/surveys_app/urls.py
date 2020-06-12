@@ -29,6 +29,11 @@ urlpatterns = [
     path('del_question/<int:pk>/', views.QuestionDeleteView.as_view(), name='del_question'),
 
     path('add_answer/<int:pk>/', views.QuestionAnswerDetailView.as_view(), name='add_answer'),
+    path('add_answer2/<int:pk>/', views.QuestionAnswerCreateView.as_view(), name='add_answer2'),
+
+    path('welcome/<int:pk>/', views.SurveyWelcome.as_view(), name='welcome'),
+    path('instruction/<int:pk>/', views.SurveyInstruction.as_view(), name='instruction'),
+    path('pages/', views.SurveyPagesListView.as_view(), name='pages'),
 
 
 

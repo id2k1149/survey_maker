@@ -81,10 +81,12 @@
     <i class="fa fa-file-alt"> Управление</i>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0" style="color:black;">{{user_name}}</h1>
+
         <a href="{% url 'surveys:add_survey' %}"
-           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-sm text-white-50"></i>
-            ДОБАВИТЬ ОПРОС</a>
+                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm "
+                    style="border-radius:12px;">
+                    <i class="fas fa-sm text-white-50"></i>
+                   ДОБАВИТЬ ОПРОС</a>
     </div>
     <!-- Content Row -->
 
@@ -105,26 +107,25 @@
 <!--                        </div>-->
                         <div class="col-md-2 font-weight-bold text-primary text-uppercase ">{{ item.name }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >
-                            {% if item.is_draft %}
-                                ЧЕРНОВИК
-                            {% else %}
-                                {% if item.is_active %}
-                                    АКТИВНЫЙ
-                                {% else %}
-                                    ЗАВЕРШЕННЫЙ
-                                {% endif %}
-                            {% endif %}
+<!--                            {% if item.is_draft %}-->
+<!--                                ЧЕРНОВИК-->
+<!--                            {% else %}-->
+<!--                                {% if item.is_active %}-->
+<!--                                    АКТИВНЫЙ-->
+<!--                                {% else %}-->
+<!--                                    ЗАВЕРШЕННЫЙ-->
+<!--                                {% endif %}-->
+<!--                            {% endif %}-->
                         </div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.created_day }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.start_date }}</div>
                         <div class="col-md-1 d-flex" style="color:black;" >{{ item.end_date }}</div>
-                        <div class="col-md-1 d-flex" style="color:black;" >pk = {{ item.pk }}</div>
-                        <div class="col-md-1 d-flex" style="color:black;" >id = {{ item.id }}</div>
+
                         <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
                                 <form method="post" action="{% url 'surveys:del_survey' pk=item.id %}" >
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-trash-alt"> {{ item.id}}</i>
+                                        <i class="fa fa-trash-alt"> </i>
                                     </button>
                                 </form>
                             </div>

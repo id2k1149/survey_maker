@@ -24,11 +24,11 @@ class Survey(MPTTModel):
     link = models.CharField(max_length=128, null=True, blank=True)
     company = models.ForeignKey(Company, null=True, blank=True, on_delete=models.CASCADE)
     hello_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='ЗАГОЛОВОК')
-    hello_text = models.TextField(max_length=128, null=True, blank=True, verbose_name='ТЕКСТ')
+    hello_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
     info_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='ЗАГОЛОВОК')
-    info_text = models.TextField(max_length=128, null=True, blank=True, verbose_name='ТЕКСТ')
+    info_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
     bye_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='ЗАГОЛОВОК')
-    bye_text = models.TextField(max_length=128, null=True, blank=True, verbose_name='ТЕКСТ')
+    bye_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
     created_day = models.DateField(default=now)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
@@ -112,3 +112,13 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MonoResponse(models.Model):
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+
+class PolyResponse(models.Model):
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    question = models.ManyToManyField(Question)

@@ -3,9 +3,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
-from .models import Survey, Pages, Question, QuestionType, Answer
-from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm, PageForm2, QuestionForm, AnswerForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .models import Survey, Pages, Question, QuestionType, Answer, MonoResponse, PolyResponse
+from .forms import StepOneForm, StepTwoForm, StepThreeForm, PageForm, PageForm2, QuestionForm, AnswerForm, ResponseForm
 from formtools.wizard.views import SessionWizardView
 
 
@@ -211,7 +211,6 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        print(self.request)
         page = get_object_or_404(Pages, pk=self.page_pk)
         form.instance.page = page
         return super().form_valid(form)
@@ -242,4 +241,50 @@ class QuestionAnswerDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AnswerForm()
+        return context
+
+
+class QuestionAnswerCreateView(LoginRequiredMixin, CreateView):
+    model = Answer
+    template_name = 'surveys_app/add_answer2.html'
+    success_url = reverse_lazy('/')
+    form_class = AnswerForm
+
+    def post(self, request, *args, **kwargs):
+        self.question_pk = kwargs['pk']
+        print("self.question_pk = ", self.question_pk)
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        question = get_object_or_404(Question, pk=self.question_pk)
+        form.instance.question = question
+        print("question = ", question)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('surveys:add_answer', kwargs={'pk': self.question_pk})
+
+
+class SurveyWelcome(LoginRequiredMixin, DetailView):
+    model = Survey
+    template_name = 'surveys_app/welcome.html'
+
+
+class SurveyInstruction(LoginRequiredMixin, DetailView):
+    model = Survey
+    template_name = 'surveys_app/instruction.html'
+
+
+class SurveyPagesListView(LoginRequiredMixin, ListView):
+    model = Pages
+    template_name = 'surveys_app/pages.html'
+    paginate_by = 1
+
+    # def get_queryset(self):
+    #     self.survey = get_object_or_404(Survey, name=self.kwargs['survey'])
+    #     return Pages.objects.filter(survey=self.survey)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ResponseForm()
         return context
