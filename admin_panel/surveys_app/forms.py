@@ -54,8 +54,13 @@ class AnswerForm(forms.ModelForm):
 
 
 class ResponseForm(forms.ModelForm):
+    # def __init__(self, q_id, *args, **kwargs):
+    #     super(ResponseForm, self).__init__(*args, **kwargs)
+    #     # self.fields['answer'].queryset = Answer.objects.filter(question=q_id)
+    #     # print(self.fields['answer'].queryset)
+    #     print(q_id)
 
-    answer = forms.ModelMultipleChoiceField(queryset=Answer.objects.all().filter(question=6),
+    answer = forms.ModelMultipleChoiceField(queryset=Answer.objects.all(),
                                             # required=False,
                                             widget=forms.CheckboxSelectMultiple())
 
