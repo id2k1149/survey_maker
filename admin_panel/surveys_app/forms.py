@@ -55,9 +55,13 @@ class AnswerForm(forms.ModelForm):
 
 class ResponseForm(forms.ModelForm):
 
+    answer = forms.ModelMultipleChoiceField(queryset=Answer.objects.all().filter(question=6),
+                                            # required=False,
+                                            widget=forms.CheckboxSelectMultiple())
+
     class Meta:
         model = MonoResponse
-        exclude = ('survey', )
+        fields = ['answer', ]
 
 
 class PageForm2(forms.ModelForm):

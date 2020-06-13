@@ -78,9 +78,14 @@
                                 </a>
 
 
-
                             </li>
                             <li><a href="#" class="nav-link">Контакты</a></li>
+                            <!--                            <li>-->
+
+                            <!--                                 <button class="button" onClick="window.open('{% url 'surveys:surveys' %}');">-->
+                            <!--                                    <span class="icon-plus"></span>-->
+                            <!--                                </button>-->
+                            <!--                            </li>-->
 
                         </ul>
                     </nav>
@@ -91,79 +96,66 @@
                         <span class="icon-menu h3"></span>
                     </a>
                 </div>
+
             </div>
         </div>
+
     </header>
 
-    <div class="container">
-        <div class="row mb-12 site-section">
-            <hr>
-            <br>
-            <hr>
-        </div>
+    <div class="site-blocks-cover" style="overflow: hidden;">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                    <div class="row mb-4 text-black" data-aos="fade-up" data-aos-delay="200">
+                        <div class="col-lg-8 mr-auto">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
 
-            <div class="row mb-5 site-section">
-                <div class="col-lg-7" data-aos="fade-right">
-                    <img src="{% static 'landing/images/undraw_gift_card_6ekc.svg' %}" alt="Image" class="img-fluid">
-                </div>
-                <div class="col-lg-5 pl-lg-5 ml-auto mt-md-5">
-                    <h2 class="text-black">{{ survey.info_title }}</h2>
+                                <button type="submit" class="btn btn-primary">SEND</button>
 
+                            </form>
 
-                    <div class="author-box" data-aos="fade-left">
-                        <div class="d-flex mb-4">
 
                         </div>
-                        <blockquote>
-                             {{ survey.info_text }} id={{ survey.id }}
-                        </blockquote>
-                        <div>
-
-                                <a href="{% url 'surveys:pages' survey_id=survey.id %}" class="btn btn-primary mr-2 mb-2">
-                                    Далее
-                                </a>
-
-                            </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 
+</div>
 
-    <!--    footer-->
-    <div class="footer py-5 text-center">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-12">
-                    <p class="mb-0">
-                        <a href="#" class="p-3"><span class="icon-facebook"></span></a>
-                        <a href="#" class="p-3"><span class="icon-twitter"></span></a>
-                        <a href="#" class="p-3"><span class="icon-instagram"></span></a>
-                        <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
-                        <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
-                    </p>
-                </div>
+
+<!--    footer-->
+<div class="footer py-5 text-center">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <p class="mb-0">
+                    <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                    <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                    <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                    <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                    <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                </p>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="mb-0">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart text-danger"
-                                                                            aria-hidden="true"></i> by <a
-                            href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                    <button type="button" id="btn-one" class="btn-info">
-                        {{ button_1 }}
-                    </button>
-                    <button type="button" id="btn-two" class="btn-info">
-                        {{ button_2 }}
-                    </button>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="mb-0">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart text-danger"
+                                                                        aria-hidden="true"></i> by <a
+                        href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+
             </div>
         </div>
     </div>
+</div>
 </div> <!-- .site-wrap -->
 
 <script src="{% static 'landing/js/jquery-3.3.1.min.js' %}"></script>

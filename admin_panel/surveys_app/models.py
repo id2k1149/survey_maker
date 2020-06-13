@@ -115,10 +115,12 @@ class Answer(models.Model):
 
 
 class MonoResponse(models.Model):
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True,)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True,)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, blank=True,)
 
 
 class PolyResponse(models.Model):
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
-    question = models.ManyToManyField(Question)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True,)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True,)
+    answer = models.ManyToManyField(Answer, blank=True,)

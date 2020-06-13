@@ -280,11 +280,28 @@ class SurveyPagesListView(LoginRequiredMixin, ListView):
     template_name = 'surveys_app/pages.html'
     paginate_by = 1
 
-    # def get_queryset(self):
-    #     self.survey = get_object_or_404(Survey, name=self.kwargs['survey'])
-    #     return Pages.objects.filter(survey=self.survey)
+    def get_queryset(self):
+        return super().get_queryset().filter(survey_id=self.kwargs['survey_id'])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ResponseForm()
         return context
+
+
+def create_respond(request):
+    if request.method == 'POST':
+        form = ResponseForm(request.POST)
+        if form.is_valid():
+
+            # survey = form.cleaned_data['survey']
+            # question = form.cleaned_data['question']
+            # answer = form.cleaned_data['answer']
+            # MonoResponse.objects.create(survey=survey, question=question, answer=answer)
+            form.save()
+            return HttpResponseRedirect(reverse('surveys:surveys'))
+        else:
+            return render(request, 'surveys_app/create.html', context={'form': form})
+    else:
+        form = ResponseForm()
+        return render(request, 'surveys_app/create.html', context={'form': form})

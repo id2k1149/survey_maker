@@ -33,7 +33,8 @@ urlpatterns = [
 
     path('welcome/<int:pk>/', views.SurveyWelcome.as_view(), name='welcome'),
     path('instruction/<int:pk>/', views.SurveyInstruction.as_view(), name='instruction'),
-    path('pages/', views.SurveyPagesListView.as_view(), name='pages'),
+    path('pages/<survey_id>', views.SurveyPagesListView.as_view(), name='pages'),
+    path('create/', views.create_respond, name='create'),
 
 
 
