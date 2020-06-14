@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'formtools',
     'debug_toolbar',
     'rest_framework',
+    'fontawesome_5',
     # django_cleanup.apps.CleanupConfig must be last
     'django_cleanup.apps.CleanupConfig',
 ]

@@ -37,10 +37,9 @@ urlpatterns = [
     # path('welcome/<slug:slug>/', views.SurveyWelcome.as_view(), name='welcome'),
     path('instruction/<int:pk>/', views.SurveyInstruction.as_view(), name='instruction'),
     path('see_you_later/<int:pk>/', views.SurveySeeYouLater.as_view(), name='see_you_later'),
-    path('pages/<survey_id>', views.SurveyPagesListView.as_view(), name='pages'),
+    path('pages/<survey_id>', views.SurveyPagesListViewDemo.as_view(), name='pages'),
     path('create/', views.create_respond, name='create'),
-
-
-
+    path('pages_d/<int:pk>/', views.PageResponseDetailView.as_view(), name='pages_d'),
+    path('pages_d2/<int:pk>/', views.ResponseCreateView.as_view(), name='pages_d2'),
 
 ]

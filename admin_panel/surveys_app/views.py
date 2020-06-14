@@ -4,10 +4,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Survey, Pages, Question, Answer, MonoResponse, PolyResponse
+from .models import Survey, Pages, Question, Answer, Response
 from .forms import StepOneForm, StepTwoForm, StepThreeForm, ContactForm
-from .forms import PageForm, PageForm2, QuestionForm, AnswerForm, ResponseForm
+from .forms import PageForm, QuestionForm, AnswerForm, ResponseFormDemo, ResponseForm
 from formtools.wizard.views import SessionWizardView
 
 
@@ -52,6 +51,7 @@ class PageDeleteView(LoginRequiredMixin, DeleteView):
         return super(DeleteView, self).delete(request,  *args, **kwargs)
 
 
+# удаление вопроса - работает
 class QuestionDeleteView(LoginRequiredMixin, DeleteView):
     model = Question
     success_url = reverse_lazy('')
@@ -90,6 +90,7 @@ class FormWizardView(LoginRequiredMixin, SessionWizardView):
     def done(self, form_list, **kwargs):
         data = {k: v for form in form_list for k, v in form.cleaned_data.items()}
         Survey.objects.create(**data)
+        # если нужна страница Завершения
         # return render(self.request, 'surveys_app/done.html', {
         #     'form_data': [form.cleaned_data for form in form_list],
         # })
@@ -107,7 +108,7 @@ class AddPageCreateView(LoginRequiredMixin, CreateView):
     model = Pages
     template_name = 'surveys_app/survey.html'
     success_url = '/'
-    form_class = PageForm2
+    form_class = PageForm
 
     def post(self, request, *args, **kwargs):
         self.survey_pk = kwargs['pk']
@@ -171,7 +172,7 @@ class PageUpdateView(LoginRequiredMixin, UpdateView):
     #     return reverse('surveys:survey', kwargs={'pk': self.survey_pk})
 
 
-# приветствие
+# страница приветствие
 class HelloUpdateView(LoginRequiredMixin,  UpdateView):
     model = Survey
     fields = ['hello_title', 'hello_text', ]
@@ -186,7 +187,7 @@ class HelloUpdateView(LoginRequiredMixin,  UpdateView):
         return reverse('surveys:survey', kwargs={'pk': self.survey_id})
 
 
-# инструкция
+# страница инструкция
 class InfoUpdateView(LoginRequiredMixin,  UpdateView):
     model = Survey
     fields = ['info_title', 'info_text', ]
@@ -201,7 +202,7 @@ class InfoUpdateView(LoginRequiredMixin,  UpdateView):
         return reverse('surveys:survey', kwargs={'pk': self.survey_id})
 
 
-#  прощание
+#  страница прощание
 class ByeUpdateView(LoginRequiredMixin,  UpdateView):
     model = Survey
     fields = ['bye_title', 'bye_text', ]
@@ -307,7 +308,8 @@ class SurveySeeYouLater(LoginRequiredMixin, DetailView):
     template_name = 'surveys_app/see_you_later.html'
 
 
-class SurveyPagesListView(LoginRequiredMixin, ListView):
+# демо
+class SurveyPagesListViewDemo(LoginRequiredMixin, ListView):
     model = Pages
     template_name = 'surveys_app/pages.html'
     paginate_by = 1
@@ -317,34 +319,14 @@ class SurveyPagesListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = ResponseForm()
+        context['form'] = ResponseFormDemo()
         return context
 
 
-class ResponseCreateView(LoginRequiredMixin, CreateView):
-    model = MonoResponse
-    template_name = 'surveys_app/add_response.html'
-    success_url = reverse_lazy('/')
-    form_class = ResponseForm
-
-    def post(self, request, *args, **kwargs):
-        self.page_pk = kwargs['pk']
-        print("self.page_pk = ", self.page_pk)
-        return super().post(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        page = get_object_or_404(Pages, pk=self.page_pk)
-        form.instance.page = page
-        print("question = ", page)
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('surveys:see_you_later', kwargs={'pk': self.page_pk})
-
-
+# не используется
 def create_respond(request):
     if request.method == 'POST':
-        form = ResponseForm(request.POST)
+        form = ResponseFormDemo(request.POST)
         if form.is_valid():
 
             # survey = form.cleaned_data['survey']
@@ -356,14 +338,14 @@ def create_respond(request):
         else:
             return render(request, 'surveys_app/create.html', context={'form': form})
     else:
-        form = ResponseForm()
+        form = ResponseFormDemo()
         return render(request, 'surveys_app/create.html', context={'form': form})
 
 
-# CreateView
+# не используется
 class SurveyResponsesCreateView(CreateView):
     fields = ('answer',)
-    model = MonoResponse
+    model = Response
     success_url = reverse_lazy('surveys:see_you_later')
     template_name = 'surveys_app/create2.html'
 
@@ -372,3 +354,39 @@ class SurveyResponsesCreateView(CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+# для пятницы
+class PageResponseDetailView(LoginRequiredMixin, DetailView):
+    model = Pages
+    template_name = 'surveys_app/pages_d.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ResponseForm()
+        return context
+
+
+# для пятницы
+class ResponseCreateView(LoginRequiredMixin, CreateView):
+    model = Response
+    template_name = 'surveys_app/pages_d2.html'
+    success_url = reverse_lazy('/')
+    form_class = ResponseForm
+
+    def post(self, request, *args, **kwargs):
+        self.question_pk = kwargs['pk']
+        print("self.question_pk from last page = ", self.question_pk)
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        question = get_object_or_404(Question, pk=self.question_pk)
+        print("question= ", question, "page_pk= ", question.page.id)
+        form.instance.question = question
+        page = get_object_or_404(Pages, pk=question.page.id)
+        print("page = ", page)
+        survey = get_object_or_404(Survey, pk=page.survey.id)
+        form.instance.survey = survey
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('surveys:pages_d', kwargs={'pk': self.question_pk})

@@ -3,6 +3,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from companies_app.models import Company
 from users_app.models import User
 from django.utils.timezone import now
+from fontawesome_5.fields import IconField
 from django.urls import reverse
 
 
@@ -49,12 +50,6 @@ class Survey(MPTTModel):
     #     return reverse('surveys:welcome', kwargs={'slug': self.slug})
 
 
-class ReturnCode(models.Model):
-    return_code = models.CharField(max_length=8)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
-
-
 class Pages(models.Model):
     number = models.SmallIntegerField(null=True, blank=True)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
@@ -98,27 +93,27 @@ class Question(MPTTModel):
 
 
 class Answer(models.Model):
-    name = models.CharField(max_length=64)
     question = models.ManyToManyField(Question, blank=True)
+    name = models.CharField(max_length=64)
+    icon = IconField()
     active_answer = models.BooleanField(default=False)
     radio_buttons = models.BooleanField(default=False)
     drop_down_list = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = 'Ответ'
-        verbose_name_plural = 'ответы'
+        verbose_name = 'Предлагаемый вариант ответа'
+        verbose_name_plural = 'Предлагаемые варианты ответов'
 
     def __str__(self):
         return self.name
 
 
-class MonoResponse(models.Model):
+class Response(models.Model):
+    code = models.CharField(max_length=8)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True,)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True,)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, blank=True,)
 
-
-class PolyResponse(models.Model):
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True,)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True,)
-    answer = models.ManyToManyField(Answer, blank=True,)
+    class Meta:
+        verbose_name = 'Полученный ответ'
+        verbose_name_plural = 'Полученные ответы'

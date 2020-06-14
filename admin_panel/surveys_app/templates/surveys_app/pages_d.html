@@ -63,11 +63,7 @@
 
                 <div class="col-6 d-block">
                     <h1 class="mb-0 site-logo">
-                        {% for item in object_list %}
-
-                        {{ item.survey.name}}
-
-                        {% endfor %}
+                        {{ object.survey.name}} ({{ object.survey.id}})
                         <span class="text-primary">.</span>
                     </h1>
                 </div>
@@ -99,16 +95,14 @@
     </header>
 
 
-    {% for item in object_list %}
-
     <div class="container">
         <div class="row-12 align-items-center justify-content-center" style="height:200px">
             <p class="mb-12">.</p>
         </div>
         <div class="row-12 align-items-center justify-content-center">
-            <h3>{{ item.page_name }}</h3>
+            <h3>СТРАНИЦА #{{ object.number }} {{ object.page_name }}</h3>
             <p class="mb-8">
-                {{ item.page_help }}
+                {{ object.page_help }}
             </p>
         </div>
         <div class="row-12 align-items-center justify-content-center">
@@ -117,67 +111,44 @@
                     <div class="col-lg-8 mr-auto">
 
                         <div>
-                            {% with all_questions=item.question_set.all %}
+
+                            {% with all_questions=object.question_set.all %}
                             {% for each in all_questions %}
-                            <h4>{{ each.question_title }} #{{ each.id }}</h4>
+                            <h4>{{ each.question_title }} (question_id_#{{ each.id }})</h4>
                             <hr>
-                            <div class="row col-md-12">
-                                <div class="col-12">
-                                    <div class="card  shadow h-100 py-2">
-                                        <div class="card-body">
-                                            {% csrf_token %}
-                                            {# form.as_ul #}
+                            <form method="post" action="{% url 'surveys:pages_d2' pk=each.id %}">
+                                <div class="row col-md-12">
+                                    <div class="col-12">
+                                        <div class="card  shadow h-100 py-2">
+                                            <div class="card-body">
+                                                {% csrf_token %}
 
-                                            {% for field in form %}
-                                            {{field}}
-<!--                                            {{field.name|length  }}-->
-<!--                                             {{field.name }}-->
-                                            {% for error in field.errors %}
-                                            {{error}}
-                                            {% endfor %}
-                                            {% endfor %}
+                                                {% for field in form %}
+                                                {{field}}
+                                                {% for error in field.errors %}
+                                                {{error}}
+                                                {% endfor %}
 
-<!--                                            {% for category in each.answer_set.all %}-->
-<!--                                            {% if category.icon %}-->
-<!--                                            {{ category.icon.as_html }}-->
-<!--                                            {% endif %}-->
-<!--                                            {% endfor %}-->
-
-
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="submit"
+                                                        class="btn btn-primary mr-2 mb-2"
+                                                        style="text-align:center;">
+                                                    Отправить
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                             <hr>
-                            {% endfor %}
+                            {% endfor%}
                             {% endwith %}
+
+
                         </div>
                         <br>
-
-
-                        <div class="pagination">
-                                <span class="step-links">
-                                    {% if page_obj.has_previous %}
-                                        <a href="?page={{ page_obj.previous_page_number }}"
-                                           class="btn btn-primary mr-2 mb-2">
-                                            Назад
-                                        </a>
-                                    {% endif %}
-                                    {% if page_obj.has_next %}
-                                        <a href="?page={{ page_obj.next_page_number }}"
-                                           class="btn btn-primary mr-2 mb-2">
-                                            Далее
-                                        </a>
-                                     {% else %}
-                                     <a href="{% url 'surveys:see_you_later' pk=item.survey.id %}"
-                                        class="btn btn-primary mr-2 mb-2">
-                                    Завершить
-                                         </a>
-
-
-                                    {% endif %}
-                                </span>
-                        </div>
 
 
                     </div>
@@ -185,8 +156,6 @@
             </div>
         </div>
     </div>
-
-    {% endfor %}
 
 
 </div>

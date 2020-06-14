@@ -1,5 +1,5 @@
 from django import forms
-from .models import Survey, Pages, Question, Answer, MonoResponse
+from .models import Survey, Pages, Question, Answer, Response
 
 
 class ContactForm(forms.Form):
@@ -18,14 +18,8 @@ class StepOneForm(forms.Form):
 class StepTwoForm(forms.Form):
     start_date = forms.DateField()
     end_date = forms.DateField()
-    # start_date = forms.DateField(widget=forms.TextInput(attrs=
-    # {
-    #     'class': 'datepicker'
-    # }))
-    # end_date = forms.DateField(widget=forms.TextInput(attrs=
-    # {
-    #     'class': 'datepicker'
-    # }))
+    # start_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker'}))
+    # end_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker'}))
 
 
 class StepThreeForm(forms.ModelForm):
@@ -35,33 +29,24 @@ class StepThreeForm(forms.ModelForm):
 
 
 class PageForm(forms.ModelForm):
-
-    # page_name = forms.CharField(label='ЗАГОЛОВОК',
-    #                             widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
-    #
-    # page_help = forms.CharField(label='ПОМОЩЬ',
-    #                             widget=forms.Textarea(attrs={'class': "form-control rounded-0"}))
-
     class Meta:
         model = Pages
-        fields = ['page_name', 'page_help', ]
+        fields = []
 
 
 class QuestionForm(forms.ModelForm):
-
     class Meta:
         model = Question
         exclude = ('page', 'parent', 'image',)
 
 
 class AnswerForm(forms.ModelForm):
-
     class Meta:
         model = Answer
         fields = ['name', ]
 
 
-class ResponseForm(forms.ModelForm):
+class ResponseFormDemo(forms.ModelForm):
     # def __init__(self, q_id, *args, **kwargs):
     #     super(ResponseForm, self).__init__(*args, **kwargs)
     #     # self.fields['answer'].queryset = Answer.objects.filter(question=q_id)
@@ -71,16 +56,23 @@ class ResponseForm(forms.ModelForm):
     answer = forms.ModelMultipleChoiceField(queryset=Answer.objects.all(),
                                             widget=forms.CheckboxSelectMultiple())
 
-    # answer = forms.ModelChoiceField(queryset=Answer.objects.all(),
-    #                                 widget=forms.CheckboxInput)
-
     class Meta:
-        model = MonoResponse
+        model = Response
         fields = ['answer', ]
 
 
-class PageForm2(forms.ModelForm):
+class ResponseForm(forms.ModelForm):
 
     class Meta:
-        model = Pages
-        fields = []
+        model = Response
+        fields = ['answer', ]
+
+
+class SurveyCode(forms.ModelForm):
+
+    class Meta:
+        model = Response
+        fields = ['code', ]
+
+
+
