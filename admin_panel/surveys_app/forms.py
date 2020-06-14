@@ -2,6 +2,14 @@ from django import forms
 from .models import Survey, Pages, Question, Answer, MonoResponse
 
 
+class ContactForm(forms.Form):
+    email = forms.EmailField(label='email',
+                             widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
+    message = forms.CharField(label='Сообщение',
+                              widget=forms.Textarea(attrs={'placeholder': 'Напишите здесь...',
+                                                           'class': "form-control rounded-0"}))
+
+
 class StepOneForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введите название опроса',
                                                          'class': 'form-control'}))
@@ -61,8 +69,10 @@ class ResponseForm(forms.ModelForm):
     #     print(q_id)
 
     answer = forms.ModelMultipleChoiceField(queryset=Answer.objects.all(),
-                                            # required=False,
                                             widget=forms.CheckboxSelectMultiple())
+
+    # answer = forms.ModelChoiceField(queryset=Answer.objects.all(),
+    #                                 widget=forms.CheckboxInput)
 
     class Meta:
         model = MonoResponse

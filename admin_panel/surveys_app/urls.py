@@ -10,6 +10,8 @@ app_name = 'surveys_app'
 # )
 
 urlpatterns = [
+    path('', views.main_view, name='index'),
+
     path('add_survey/', views.FormWizardView.as_view([StepOneForm, StepTwoForm, StepThreeForm]), name='add_survey'),
     path('surveys/', views.SurveysListView.as_view(), name='surveys'),
     path('survey/<int:pk>/', views.SurveyDetailView.as_view(), name='survey'),
@@ -32,7 +34,9 @@ urlpatterns = [
     path('add_answer2/<int:pk>/', views.QuestionAnswerCreateView.as_view(), name='add_answer2'),
 
     path('welcome/<int:pk>/', views.SurveyWelcome.as_view(), name='welcome'),
+    # path('welcome/<slug:slug>/', views.SurveyWelcome.as_view(), name='welcome'),
     path('instruction/<int:pk>/', views.SurveyInstruction.as_view(), name='instruction'),
+    path('see_you_later/<int:pk>/', views.SurveySeeYouLater.as_view(), name='see_you_later'),
     path('pages/<survey_id>', views.SurveyPagesListView.as_view(), name='pages'),
     path('create/', views.create_respond, name='create'),
 

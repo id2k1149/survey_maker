@@ -4,8 +4,8 @@ from companies_app import views
 app_name = 'companies_app'
 
 urlpatterns = [
-    path('', views.main_view, name='index'),
-    # path('landing/', views.landing_view, name='landing'),
+
+
     path('companies/', views.CompaniesListView.as_view(), name='companies'),
     path('search/', views.CompanySearchView.as_view(), name='search_results'),
     path('users/<int:pk>/', views.CompanyDetailView.as_view(), name='users'),

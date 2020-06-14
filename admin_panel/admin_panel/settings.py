@@ -152,7 +152,7 @@ AUTH_USER_MODEL = 'users_app.User'
 # Куда идти на логин
 LOGIN_URL = '/users/login/'
 # Куда идти после логина
-LOGIN_REDIRECT_URL = '/companies/'
+LOGIN_REDIRECT_URL = '/companies/companies/'
 # Куда идти после выхода
 LOGOUT_REDIRECT_URL = '/users/login/'
 

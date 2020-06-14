@@ -93,45 +93,32 @@
 
 
             {% for item in object_list %}
-            <a href="{% url 'surveys:survey' pk=item.pk %}" style="text-decoration: none;">
+
                 <div class="row col-md-12">
+
                     <div class="col-12">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
-                                <div class="row no-gutters col-md-12">
-                                    <!--                        <div class="col-md-1 d-flex ">-->
-                                    <!--                            {% if item.avatar %}-->
-                                    <!--                            <img src="{{item.avatar.url}}" width="40">-->
-                                    <!--                            {% else %}-->
-                                    <!--                            <i class="fas fa-user fa-2x text-gray-300"> </i>-->
-                                    <!--                            {% endif %}-->
-                                    <!--                        </div>-->
-                                    <div class="col-md-2 font-weight-bold text-primary text-uppercase ">
+                                <div class="row no-gutters">
+
+                                    <div class="col-6 font-weight-bold text-primary text-uppercase ">
+                                        <a href="{% url 'surveys:survey' pk=item.pk %}" style="text-decoration: none;">
                                         {{ item.name }}
+                                        </a>
                                     </div>
-                                    <div class="col-md-1 d-flex" style="color:black;">
-                                        <!--                            {% if item.is_draft %}-->
-                                        <!--                                ЧЕРНОВИК-->
-                                        <!--                            {% else %}-->
-                                        <!--                                {% if item.is_active %}-->
-                                        <!--                                    АКТИВНЫЙ-->
-                                        <!--                                {% else %}-->
-                                        <!--                                    ЗАВЕРШЕННЫЙ-->
-                                        <!--                                {% endif %}-->
-                                        <!--                            {% endif %}-->
-                                    </div>
-                                    <!--                                    <div class="col-md-1 d-flex" style="color:black;">{{ item.created_day }}</div>-->
-                                    <div class="col-md-1 d-flex" style="color:black;">{{ item.start_date }}</div>
-                                    <div class="col-md-1 d-flex" style="color:black;">{{ item.end_date }}</div>
-                                    <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
-                                        <a href="{% url 'surveys:welcome' pk=item.pk %}"
-                                           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm "
-                                           style="border-radius:12px;">
-                                            <i class="fas fa-sm text-white-50"></i>
-                                            пройти ОПРОС</a>
+                                    <div class="col-1 d-flex" style="color:black;">{{ item.start_date }}</div>
+                                    <div class="col-1 d-flex" style="color:black;">{{ item.end_date }}</div>
+                                    <div class="col-1 font-weight-bold text-primary text-uppercase mb-1">
+<!--                                        <a href="{{ item.get_absolute_url }}">-->
+
+                                            <a href="{% url 'surveys:welcome' pk=item.pk %}">
+                                         <button type="submit" class="btn btn-success">
+                                                <i class="fa fa-play"> </i>
+                                            </button>
+                                            </a>
                                     </div>
 
-                                    <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
+                                    <div class="col-1 font-weight-bold text-primary text-uppercase mb-1">
                                         <form method="post" action="{% url 'surveys:del_survey' pk=item.id %}">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-danger">
@@ -148,7 +135,7 @@
                     </div>
                 </div>
                 <br>
-            </a>
+
             {% endfor %}
 
         </div>

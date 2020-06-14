@@ -1,44 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
-from .forms import ContactForm, DepartmentForm
+from .forms import DepartmentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Company, Department
 
 
 # Create your views here.
-def main_view(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            # last_name = form.cleaned_data['last_name']
-            email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
-
-            send_mail(
-                'Contact message',
-                f'Ваш сообщение "{subject}" принято',
-                'id2k1149@gmail.com',
-                [email],
-                fail_silently=True,
-            )
-
-            return HttpResponseRedirect(reverse('companies:index'))
-
-        else:
-            return render(request, 'companies_app/index.html', context={'form': form})
-    else:
-        form = ContactForm()
-        return render(request, 'companies_app/index.html', context={'form': form})
-
-
 # ListView
 class CompaniesListView(LoginRequiredMixin, ListView):
     model = Company

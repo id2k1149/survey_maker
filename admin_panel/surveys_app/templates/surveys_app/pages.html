@@ -35,14 +35,13 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 
-
 <div class="loader">
     <div class="spinner-border text-primary" role="status">
         <span class="sr-only">Loading...</span>
     </div>
 </div>
 
-<div class="site-wrap" >
+<div class="site-wrap">
 
     <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
@@ -97,84 +96,78 @@
     </header>
 
 
-    {% for item in object_list %}
+    <form method="post" action="#" class="p-5 bg-white">
 
-    <div class="container">
-        <div class="row-12 align-items-center justify-content-center" style="height:300px">
+        {% for item in object_list %}
 
-            <p class="mb-12">
-               .
-            </p>
+        <div class="container">
+            <div class="row-12 align-items-center justify-content-center" style="height:200px">
+                <p class="mb-12">.</p>
+            </div>
+            <div class="row-12 align-items-center justify-content-center">
+                <h3>{{ item.page_name }}</h3>
+                <p class="mb-8">
+                    {{ item.page_help }}
+                </p>
+            </div>
+            <div class="row-12 align-items-center justify-content-center">
+                <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                    <div class="row mb-4 text-black" data-aos="fade-up" data-aos-delay="200">
+                        <div class="col-lg-8 mr-auto">
 
-        </div>
-        <div class="row-12 align-items-center justify-content-center">
-            <h3>{{ item.page_name }}</h3>
-            <p class="mb-8">
-                {{ item.page_help }}
-
-                <!--                                {{ item. }}-->
-            </p>
-        </div>
-        <div class="row-12 align-items-center justify-content-center">
-            <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
-                <div class="row mb-4 text-black" data-aos="fade-up" data-aos-delay="200">
-                    <div class="col-lg-8 mr-auto">
-
-
-                        <div>
-                            {% with all_questions=item.question_set.all %}
-                            {% for each in all_questions %}
-
-                            <h4>{{ each.question_text }} ##{{ each.id }}</h4>
-                            <hr>
-
-                            <div class="row col-md-12">
-                                <div class="col-12">
-                                    <div class="card  shadow h-100 py-2">
-                                        <div class="card-body">
-
-                                            <form method="post">
+                            <div>
+                                {% with all_questions=item.question_set.all %}
+                                {% for each in all_questions %}
+                                <h4>{{ each.question_title }} ##{{ each.id }}</h4>
+                                <hr>
+                                <div class="row col-md-12">
+                                    <div class="col-12">
+                                        <div class="card  shadow h-100 py-2">
+                                            <div class="card-body">
                                                 {% csrf_token %}
-                                                {{ each.id }}
                                                 {{ form.as_p }}
-
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
+                                {% endfor %}
+                                {% endwith %}
                             </div>
-                            <hr>
+                            <br>
 
-                            {% endfor %}
-                            {% endwith %}
-                        </div>
-                        <br>
 
-                        <div class="pagination">
-                                <span class="step-links">
-                                    {% if page_obj.has_previous %}
-                                        <a href="?page={{ page_obj.previous_page_number }}"
-                                           class="btn btn-primary mr-2 mb-2">
-                                            Назад
-                                        </a>
-                                    {% endif %}
-                                    {% if page_obj.has_next %}
-                                        <a href="?page={{ page_obj.next_page_number }}"
-                                           class="btn btn-primary mr-2 mb-2">
-                                            Далее
-                                        </a>
-                                    {% endif %}
-                                </span>
+                            <!--                            <div class="pagination">-->
+                            <!--                                <span class="step-links">-->
+                            <!--                                    {% if page_obj.has_previous %}-->
+                            <!--                                        <a href="?page={{ page_obj.previous_page_number }}"-->
+                            <!--                                           class="btn btn-primary mr-2 mb-2">-->
+                            <!--                                            Назад-->
+                            <!--                                        </a>-->
+                            <!--                                    {% endif %}-->
+                            <!--                                    {% if page_obj.has_next %}-->
+                            <!--                                        <a href="?page={{ page_obj.next_page_number }}"-->
+                            <!--                                           class="btn btn-primary mr-2 mb-2">-->
+                            <!--                                            Далее-->
+                            <!--                                        </a>-->
+                            <!--                                    {% endif %}-->
+                            <!--                                </span>-->
+                            <!--                            </div>-->
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    {% endfor %}
-
-
+        {% endfor %}
+        <div class="row form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Отправить" class="btn btn-primary mr-2 mb-2">
+            </div>
+        </div>
+    </form>
 </div>
 
 

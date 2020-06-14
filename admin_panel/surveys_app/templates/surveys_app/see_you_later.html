@@ -81,6 +81,12 @@
 
                             </li>
                             <li><a href="#" class="nav-link">Контакты</a></li>
+<!--                            <li>-->
+
+<!--                                 <button class="button" onClick="window.open('{% url 'surveys:surveys' %}');">-->
+<!--                                    <span class="icon-plus"></span>-->
+<!--                                </button>-->
+<!--                            </li>-->
 
                         </ul>
                     </nav>
@@ -91,44 +97,40 @@
                         <span class="icon-menu h3"></span>
                     </a>
                 </div>
+
             </div>
         </div>
-    </header>
 
-    <div class="container">
-        <div class="row-12 align-items-center justify-content-center" style="height:150px">
+    </header>
+    <div class="site-blocks-cover" style="overflow: hidden;">
+        <div class="container">
+            <div class="row-12 align-items-center justify-content-center" style="height:300px">
 
             <p class="mb-12">
                .
             </p>
 
         </div>
+            <div class="row align-items-center justify-content-center">
 
-            <div class="row mb-5 site-section">
-                <div class="col-lg-7" data-aos="fade-right">
-                    <img src="{% static 'landing/images/undraw_gift_card_6ekc.svg' %}" alt="Image" class="img-fluid">
-                </div>
-                <div class="col-lg-5 pl-lg-5 ml-auto mt-md-5">
-                    <h2 class="text-black">{{ survey.info_title }}</h2>
+                <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
 
+                    <img src="{% static 'landing/images/undraw_investing_7u74.svg' %}" alt="Image"
+                         class="img-fluid img-absolute">
 
-                    <div class="author-box" data-aos="fade-left">
-                        <div class="d-flex mb-4">
+                    <div class="row mb-4 text-black" data-aos="fade-up" data-aos-delay="200">
+                        <div class="col-lg-6 mr-auto">
+                            <h3>{{ survey.bye_title }}</h3>
+                            <p class="mb-5">
+                                {{ survey.bye_text }}
+                            </p>
 
                         </div>
-                        <blockquote>
-                             {{ survey.info_text }} id={{ survey.id }}
-                        </blockquote>
-                        <div>
-
-                                <a href="{% url 'surveys:pages' survey_id=survey.id %}" class="btn btn-primary mr-2 mb-2">
-                                    Далее
-                                </a>
-
-                            </div>
                     </div>
+
                 </div>
             </div>
+        </div>
     </div>
 
 
@@ -146,19 +148,19 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="mb-0">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart text-danger"
-                                                                            aria-hidden="true"></i> by <a
-                            href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-
-                </div>
-            </div>
+<!--            <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                    <p class="mb-0">-->
+<!--                        &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>-->
+<!--                        All rights reserved | This template is made with <i class="icon-heart text-danger"-->
+<!--                                                                            aria-hidden="true"></i> by <a-->
+<!--                            href="https://colorlib.com" target="_blank">Colorlib</a>-->
+<!--                        &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--                    </p>-->
+<!--                   -->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </div> <!-- .site-wrap -->

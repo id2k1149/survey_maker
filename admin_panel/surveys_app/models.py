@@ -3,6 +3,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from companies_app.models import Company
 from users_app.models import User
 from django.utils.timezone import now
+from django.urls import reverse
 
 
 # Create your models here.
@@ -21,7 +22,7 @@ class Survey(MPTTModel):
     name = models.CharField(max_length=64)
     is_draft = models.BooleanField(default=True)
     is_active = models.BooleanField(default=False)
-    link = models.CharField(max_length=128, null=True, blank=True)
+    slug = models.SlugField(null=True)
     company = models.ForeignKey(Company, null=True, blank=True, on_delete=models.CASCADE)
     hello_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='ЗАГОЛОВОК')
     hello_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
@@ -43,6 +44,9 @@ class Survey(MPTTModel):
 
     def __str__(self):
         return self.name
+
+    # def get_absolute_url(self):
+    #     return reverse('surveys:welcome', kwargs={'slug': self.slug})
 
 
 class ReturnCode(models.Model):
@@ -75,20 +79,14 @@ class Pages(models.Model):
         verbose_name_plural = 'Страницы'
 
 
-class QuestionType(models.Model):
-    question_type_name = models.CharField(max_length=24)
-
-    class Meta:
-        verbose_name = 'Тип вопроса'
-        verbose_name_plural = 'типы вопросов'
-
-    def __str__(self):
-        return self.question_type_name
-
-
 class Question(MPTTModel):
-    question_type = models.ForeignKey(QuestionType, on_delete=models.CASCADE)
-    question_text = models.CharField(max_length=128, null=True, blank=True)
+    TYPE_QUESTION = (
+        ("Mono", "Mono"),
+        ("Poly", "Poly"),
+        ("Text", "Text"),
+    )
+    question_type = models.CharField(max_length=255, choices=TYPE_QUESTION, default='Mono')
+    question_title = models.CharField(max_length=128, null=True, blank=True)
     question_help = models.CharField(max_length=128, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to='question_image')
     page = models.ForeignKey(Pages, on_delete=models.CASCADE, blank=True)
@@ -101,7 +99,7 @@ class Question(MPTTModel):
 
 class Answer(models.Model):
     name = models.CharField(max_length=64)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ManyToManyField(Question, blank=True)
     active_answer = models.BooleanField(default=False)
     radio_buttons = models.BooleanField(default=False)
     drop_down_list = models.BooleanField(default=False)
