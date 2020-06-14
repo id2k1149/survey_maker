@@ -69,18 +69,20 @@
 
                         <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
                             <li>
-                                <!--                                <button type="button" id="btn-help" class="nav-link btn  mr-2 mb-2">-->
-                                <!--                                    Help-->
-                                <!--                                </button>-->
-
-                                <a href="#" id="help" class="nav-link">
+                                <a href="#"  >
                                     Помощь
                                 </a>
-
-
-
                             </li>
-                            <li><a href="#" class="nav-link">Контакты</a></li>
+                            <li>
+                                <a href="#" >
+                                    Контакты
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'surveys:pages' survey_id=survey.id %}" >
+                                    Демо
+                                </a>
+                            </li>
 
                         </ul>
                     </nav>
@@ -99,36 +101,36 @@
         <div class="row-12 align-items-center justify-content-center" style="height:150px">
 
             <p class="mb-12">
-               .
+                .
             </p>
 
         </div>
 
-            <div class="row mb-5 site-section">
-                <div class="col-lg-7" data-aos="fade-right">
-                    <img src="{% static 'landing/images/undraw_gift_card_6ekc.svg' %}" alt="Image" class="img-fluid">
-                </div>
-                <div class="col-lg-5 pl-lg-5 ml-auto mt-md-5">
-                    <h2 class="text-black">{{ survey.info_title }}</h2>
+        <div class="row mb-5 site-section">
+            <div class="col-lg-7" data-aos="fade-right">
+                <img src="{% static 'landing/images/undraw_gift_card_6ekc.svg' %}" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-lg-5 pl-lg-5 ml-auto mt-md-5">
+                <h2 class="text-black">{{ survey.info_title }}</h2>
 
 
-                    <div class="author-box" data-aos="fade-left">
-                        <div class="d-flex mb-4">
+                <div class="author-box" data-aos="fade-left">
+                    <div class="d-flex mb-4">
 
-                        </div>
-                        <blockquote>
-                             {{ survey.info_text }} id={{ survey.id }}
-                        </blockquote>
-                        <div>
+                    </div>
+                    <blockquote>
+                        {{ survey.info_text }} id={{ survey.id }}
+                    </blockquote>
+                    <div>
 
-                                <a href="{% url 'surveys:pages' survey_id=survey.id %}" class="btn btn-primary mr-2 mb-2">
-                                    Далее
-                                </a>
+                        <a href="#" class="btn btn-primary mr-2 mb-2">
+                            Далее
+                        </a>
 
-                            </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 
 

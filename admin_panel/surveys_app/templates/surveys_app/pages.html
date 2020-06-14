@@ -96,7 +96,7 @@
     </header>
 
 
-    <form method="post" action="#" class="p-5 bg-white">
+
 
         {% for item in object_list %}
 
@@ -137,22 +137,29 @@
                             <br>
 
 
-                            <!--                            <div class="pagination">-->
-                            <!--                                <span class="step-links">-->
-                            <!--                                    {% if page_obj.has_previous %}-->
-                            <!--                                        <a href="?page={{ page_obj.previous_page_number }}"-->
-                            <!--                                           class="btn btn-primary mr-2 mb-2">-->
-                            <!--                                            Назад-->
-                            <!--                                        </a>-->
-                            <!--                                    {% endif %}-->
-                            <!--                                    {% if page_obj.has_next %}-->
-                            <!--                                        <a href="?page={{ page_obj.next_page_number }}"-->
-                            <!--                                           class="btn btn-primary mr-2 mb-2">-->
-                            <!--                                            Далее-->
-                            <!--                                        </a>-->
-                            <!--                                    {% endif %}-->
-                            <!--                                </span>-->
-                            <!--                            </div>-->
+                            <div class="pagination">
+                                <span class="step-links">
+                                    {% if page_obj.has_previous %}
+                                        <a href="?page={{ page_obj.previous_page_number }}"
+                                           class="btn btn-primary mr-2 mb-2">
+                                            Назад
+                                        </a>
+                                    {% endif %}
+                                    {% if page_obj.has_next %}
+                                        <a href="?page={{ page_obj.next_page_number }}"
+                                           class="btn btn-primary mr-2 mb-2">
+                                            Далее
+                                        </a>
+                                     {% else %}
+                                     <a href="{% url 'surveys:see_you_later' pk=item.survey.id %}"
+                                        class="btn btn-primary mr-2 mb-2">
+                                    Завершить
+                                         </a>
+
+
+                                    {% endif %}
+                                </span>
+                            </div>
 
 
                         </div>
@@ -162,12 +169,8 @@
         </div>
 
         {% endfor %}
-        <div class="row form-group">
-            <div class="col-md-12">
-                <input type="submit" value="Отправить" class="btn btn-primary mr-2 mb-2">
-            </div>
-        </div>
-    </form>
+
+
 </div>
 
 
@@ -195,12 +198,7 @@
                         href="https://colorlib.com" target="_blank">Colorlib</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
-                <button type="button" id="btn-one" class="btn-info">
-                    {{ button_1 }}
-                </button>
-                <button type="button" id="btn-two" class="btn-info">
-                    {{ button_2 }}
-                </button>
+
             </div>
         </div>
     </div>

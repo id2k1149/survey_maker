@@ -18,23 +18,11 @@
             </button>
 
             <!-- Topbar Search -->
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                           aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-
                 <div class="topbar-divider d-none d-sm-block"></div>
-
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
@@ -66,9 +54,7 @@
                         </a>
                     </div>
                 </li>
-
             </ul>
-
         </nav>
         <!-- End of Topbar -->
         <!-- Begin Page Content -->
@@ -77,19 +63,22 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="p-5">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Редактирование профиля</h1>
-                        </div>
-                        <form method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <div class="col">
+                        <div class="row  text-center">
+                             <div class="col-2" >
                                 {% if object.avatar %}
                                 <img src="{{object.avatar.url}}" width="40">
                                 {% else %}
                                 <i class="fas fa-user fa-2x text-gray-300"> </i>
                                 {% endif %}
                             </div>
-                            {{ form.as_p }}
+                            <div class="col-8" >
+                            <h1 class="h4 text-gray-900 mb-4">Редактирование профиля</h1>
+                            </div>
+                        </div>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            {{ form.as_ul }}
                             <button type="submit" class="btn btn-primary btn-user btn-block">Отправить</button>
                         </form>
                     </div>

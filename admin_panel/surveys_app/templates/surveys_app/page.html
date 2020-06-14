@@ -18,17 +18,7 @@
             </button>
 
             <!-- Topbar Search -->
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                           aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -80,7 +70,7 @@
 
             <!--          <i class="fa fa-sitemap"> Компания</i>-->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800"> ОПРОС {{ object.survey.name }} {{ object.survey.id }} </h1>
+                <h1 class="h3 mb-0 text-gray-800"> ОПРОС {{ object.survey.name }} ({{ object.survey.id }}) </h1>
                 <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
             </div>
 
@@ -91,7 +81,7 @@
                         <div class="card-body">
                             <div class="row no-gutters ">
                                 <div class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
-                                    СТРАНИЦА #{{ object.page_number }} {{ object.page_name }} {{ object.pk}}
+                                    СТРАНИЦА #{{ object.page_number }} {{ object.page_name }} ({{ object.pk}})
                                 </div>
                                 <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
                                     <form method="post" action="{% url 'surveys:del_page' pk=object.id %}">
@@ -126,37 +116,40 @@
                                         <div class="col-12">
                                             <div class="row no-gutters ">
 
-                                            {% for item in object.question_set.all %}
-                                            <div class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
-                                                 <a href="{% url 'surveys:add_answer' pk=item.id  %}">
-                                                вопрос - {{ item.question_text }} ({{ item.question_type }} вопрос)
-                                                     </a>
-                                            </div>
-                                            <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
-                                                <form method="post"
-                                                      action="{% url 'surveys:del_question' pk=item.id %}">
-                                                    {% csrf_token %}
-                                                    <button type="submit"
-                                                            class="btn btn-danger"
-                                                            style="
+                                                {% for item in object.question_set.all %}
+                                                <div class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
+                                                    <a href="{% url 'surveys:add_answer' pk=item.id  %}">
+                                                        вопрос - {{ item.question_title }}
+                                                        ({{ item.question_type }} вопрос {{ item.id }})
+                                                    </a>
+                                                    <hr>
+                                                </div>
+
+                                                <div class="col-md-1 font-weight-bold text-primary text-uppercase mb-1">
+                                                    <form method="post"
+                                                          action="{% url 'surveys:del_question' pk=item.id %}">
+                                                        {% csrf_token %}
+                                                        <button type="submit"
+                                                                class="btn btn-danger"
+                                                                style="
                                                     display: flex;
                                                     width:30px;
                                                     height:30px;
                                                     align-items:center;
                                                     justify-content:center;">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                            <div class="col-md-1 ">
-                                                <a href="{% url 'surveys:upd_question' pk=item.id %}">
-                                                    <i class="fa  fa-pen-square text-gray-400 fa-2x"></i>
-                                                </a>
-                                            </div>
+                                                            <i class="fa fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-1 ">
+                                                    <a href="{% url 'surveys:upd_question' pk=item.id %}">
+                                                        <i class="fa  fa-pen-square text-gray-400 fa-2x"></i>
+                                                    </a>
+                                                </div>
 
 
-                                            <hr>
-                                            {% endfor %}
+                                                <hr>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>

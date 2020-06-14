@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load mptt_tags %}
-{% block title %} Карточка компании {% endblock %}
+{% block title %} Опрос {% endblock %}
 
 {% block content %}
 <!-- Content Wrapper -->
@@ -18,17 +18,7 @@
             </button>
 
             <!-- Topbar Search -->
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                           aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -85,13 +75,7 @@
             </div>
 
 
-            <!--    <div class="d-sm-flex align-items-center justify-content-between mb-4">-->
-            <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">-->
-            <!--&lt;!&ndash;               <a href="{% url 'companies:company_add_department' pk=object.pk %}"&ndash;&gt;-->
 
-            <!--            <i class="fas fa-sm text-white-50"></i>-->
-            <!--            Добавить </a>-->
-            <!--    </div>-->
 
 
             <a href="{% url 'surveys:hello' pk=survey.id %}" style="text-decoration: none;">
@@ -140,15 +124,17 @@
 
                             <a href="{% url 'surveys:page' pk=item.pk %}" style="text-decoration: none;"
                                class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
-                                СТРАНИЦА {{ forloop.counter }} {{ item.page_name }} {{ item.pk}} {{ item.survey}}
+                                СТРАНИЦА {{ forloop.counter }} {{ item.page_name }}
+                                <!--   невидимый счетчик страниц                             -->
                                 <div style="display:none;">{{ item.page_number }}</div>
+                                <!--                                -->
                             </a>
 
                             <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
                                 <form method="post" action="{% url 'surveys:del_page' pk=item.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-trash-alt">{{ item.id}} {{ survey.id}}</i>
+                                        <i class="fa fa-trash-alt"></i>
                                     </button>
                                 </form>
                             </div>
@@ -185,13 +171,12 @@
                         <div class="card-body">
                             <div class="row no-gutters ">
                                 <div class="col-md-9 font-weight-bold text-primary text-uppercase mb-1">
-                                    + ДОБАВИТЬ СТРАНИЦУ
-                                </div>
-                                <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
                                     <form method="post" action="{% url 'surveys:add' pk=survey.id %}">
                                         {% csrf_token %}
-                                        <button type="submit" class="btn btn-success">
-                                            <i class="fa fa-plus-square"> surv_id={{ survey.id}}</i>
+                                         <button type="submit"
+                                                 class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm "
+                                                 style="border-radius:12px;">
+                                            <i class="fa fa-plus-square">    ДОБАВИТЬ СТРАНИЦУ</i>
                                         </button>
                                     </form>
                                 </div>

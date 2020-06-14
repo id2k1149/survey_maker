@@ -310,7 +310,7 @@ class SurveySeeYouLater(LoginRequiredMixin, DetailView):
 class SurveyPagesListView(LoginRequiredMixin, ListView):
     model = Pages
     template_name = 'surveys_app/pages.html'
-    # paginate_by = 1
+    paginate_by = 1
 
     def get_queryset(self):
         return super().get_queryset().filter(survey_id=self.kwargs['survey_id'])
