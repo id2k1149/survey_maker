@@ -1,10 +1,14 @@
+import uuid
+
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from companies_app.models import Company
-from users_app.models import User
 from django.utils.timezone import now
 from fontawesome_5.fields import IconField
-from django.urls import reverse
+
+
+def random_string():
+    return str(uuid.uuid4().hex[:5].upper())
 
 
 # Create your models here.
@@ -25,11 +29,11 @@ class Survey(MPTTModel):
     is_active = models.BooleanField(default=False)
     slug = models.SlugField(null=True)
     company = models.ForeignKey(Company, null=True, blank=True, on_delete=models.CASCADE)
-    hello_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='ЗАГОЛОВОК')
+    hello_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='Приветствие')
     hello_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
-    info_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='ЗАГОЛОВОК')
+    info_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='Инструкция')
     info_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
-    bye_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='ЗАГОЛОВОК')
+    bye_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='Завешение')
     bye_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
     created_day = models.DateField(default=now)
     start_date = models.DateField(null=True, blank=True)
@@ -93,9 +97,9 @@ class Question(MPTTModel):
 
 
 class Answer(models.Model):
+    icon = IconField()
     question = models.ManyToManyField(Question, blank=True)
     name = models.CharField(max_length=64)
-    icon = IconField()
     active_answer = models.BooleanField(default=False)
     radio_buttons = models.BooleanField(default=False)
     drop_down_list = models.BooleanField(default=False)
@@ -108,11 +112,16 @@ class Answer(models.Model):
         return self.name
 
 
+class UserCode(models.Model):
+    code = models.CharField(max_length=5, unique=True, default=random_string)
+
+
 class Response(models.Model):
-    code = models.CharField(max_length=8)
+    code = models.ForeignKey(UserCode, on_delete=models.CASCADE, blank=True,)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True,)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True,)
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, blank=True,)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True, blank=True,)
+    active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Полученный ответ'

@@ -69,17 +69,17 @@
 
                         <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
                             <li>
-                                <a href="#"  >
+                                <a href="#">
                                     Помощь
                                 </a>
                             </li>
                             <li>
-                                <a href="#" >
+                                <a href="#">
                                     Контакты
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'surveys:pages' survey_id=survey.id %}" >
+                                <a href="{% url 'surveys:pages' survey_id=survey.id %}">
                                     Демо
                                 </a>
                             </li>
@@ -121,14 +121,29 @@
                     <blockquote>
                         {{ survey.info_text }} (id={{ survey.id }})
                     </blockquote>
-                    <div>
 
-                        <a href="{% url 'surveys:pages_d' pk=survey.pages_set.first.id %}" class="btn btn-primary mr-2 mb-2">
+                    <div>
+                        <a href="{% url 'surveys:pages_d' pk=survey.pages_set.first.id %}"
+                           class="btn btn-primary mr-2 mb-2">
                             Далее
                         </a>
                         (pk= {{survey.pages_set.first.id }})
-
                     </div>
+
+
+<!--                        <div class="col-2">-->
+<!--                            <form method="post"-->
+<!--                                  action="{% url 'surveys:pages_d' pk=survey.pages_set.first.id %}">-->
+<!--                                {% csrf_token %}-->
+<!--                                <button type="submit"-->
+<!--                                        class="btn btn-primary mr-2 mb-2"-->
+<!--                                        style="text-align:center;">-->
+<!--                                    Далее-->
+<!--                                </button>-->
+<!--                            </form>-->
+<!--                        </div>-->
+
+                     (page pk= {{survey.pages_set.first.id }})
                 </div>
             </div>
         </div>

@@ -41,5 +41,6 @@ urlpatterns = [
     path('create/', views.create_respond, name='create'),
     path('pages_d/<int:pk>/', views.PageResponseDetailView.as_view(), name='pages_d'),
     path('pages_d2/<int:pk>/', views.ResponseCreateView.as_view(), name='pages_d2'),
+    path('pages_d3/<int:pk>/', views.StartSurveyCreateView.as_view(), name='pages_d3'),
 
 ]

@@ -6,7 +6,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Survey, Pages, Question, Answer, Response
 from .forms import StepOneForm, StepTwoForm, StepThreeForm, ContactForm
-from .forms import PageForm, QuestionForm, AnswerForm, ResponseFormDemo, ResponseForm
+from .forms import PageForm, QuestionForm, AnswerForm, ResponseFormDemo, ResponseForm, SurveyCode
 from formtools.wizard.views import SessionWizardView
 
 
@@ -293,23 +293,53 @@ class QuestionAnswerCreateView(LoginRequiredMixin, CreateView):
         return reverse('surveys:add_answer', kwargs={'pk': self.question_pk})
 
 
-class SurveyWelcome(LoginRequiredMixin, DetailView):
+class SurveyWelcome(DetailView):
     model = Survey
     template_name = 'surveys_app/welcome.html'
 
 
-class SurveyInstruction(LoginRequiredMixin, DetailView):
+# шаг 1
+class SurveyInstruction(DetailView):
     model = Survey
     template_name = 'surveys_app/instruction.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = SurveyCode()
+        return context
 
-class SurveySeeYouLater(LoginRequiredMixin, DetailView):
+
+# шаг 2
+class StartSurveyCreateView(CreateView):
+    model = Response
+    template_name = 'surveys_app/pages_d3.html'
+    success_url = reverse_lazy('')
+    form_class = SurveyCode
+
+    def post(self, request, *args, **kwargs):
+        self.page_pk = kwargs['pk']
+        print("self.page_pk from instruction page = ", self.page_pk)
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        page = get_object_or_404(Pages, pk=self.page_pk)
+        # print("question= ", question, "page_pk= ", question.page.id)
+        survey = get_object_or_404(Survey, pk=page.survey.id)
+        form.instance.survey = survey
+        form.instance.code = random_string()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('surveys:pages_d', kwargs={'pk': self.page_pk})
+
+
+class SurveySeeYouLater(DetailView):
     model = Survey
     template_name = 'surveys_app/see_you_later.html'
 
 
 # демо
-class SurveyPagesListViewDemo(LoginRequiredMixin, ListView):
+class SurveyPagesListViewDemo(ListView):
     model = Pages
     template_name = 'surveys_app/pages.html'
     paginate_by = 1
@@ -355,8 +385,9 @@ class SurveyResponsesCreateView(CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
+
 # для пятницы
-class PageResponseDetailView(LoginRequiredMixin, DetailView):
+class PageResponseDetailView(DetailView):
     model = Pages
     template_name = 'surveys_app/pages_d.html'
 
@@ -367,7 +398,7 @@ class PageResponseDetailView(LoginRequiredMixin, DetailView):
 
 
 # для пятницы
-class ResponseCreateView(LoginRequiredMixin, CreateView):
+class ResponseCreateView(CreateView):
     model = Response
     template_name = 'surveys_app/pages_d2.html'
     success_url = reverse_lazy('/')

@@ -29,7 +29,6 @@ class Command(BaseCommand):
             for each in range(random_1):
                 random_company = random.choice(companies)
                 # random_items = random.sample(companies, 3)
-                # print(random_items)
 
                 company_id = Company.objects.get(name=random_company).id
                 print(random_company, ' ', company_id)
