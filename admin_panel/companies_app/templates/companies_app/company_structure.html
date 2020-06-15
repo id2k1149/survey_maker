@@ -46,7 +46,7 @@
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{% url 'users:profile' pk=user.id %}">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </a>
@@ -112,20 +112,20 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h3 class="h3 mb-0 text-gray-800">Отделы:</h3>
-            <a href="{% url 'companies:add_department'%}"
+            <a href="{% url 'companies:company_add_department' pk=object.pk %}"
            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-sm text-white-50"></i>
             Добавить подразделение</a>
     </div>
 
     <ul class="root">
-        {% recursetree company.departments.all %}
+        {% recursetree company.department_set.all %}
             <li style="list-style-type: none; ">
                 <div class="col-12 fa-1x" >
                         <div class="card border-left-primary shadow h-100 py-2" >
                             <div class="card-body" >
                                 <div class="row no-gutters" >
-                                    <div class="col-md-3 font-weight-bold text-primary text-uppercase mb-1">
+                                    <div class="col-md-2 font-weight-bold text-primary text-uppercase mb-1">
                                         <i class="fas fa-level-up-alt" style="transform: rotate(90deg); color:gray; margin-right: 10px" ></i>
                                         {{ node.department_name }}
                                     </div>
@@ -150,5 +150,3 @@
 <!-- /.container-fluid -->
 
 {% endblock %}
-
-

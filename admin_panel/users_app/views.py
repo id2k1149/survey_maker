@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
@@ -30,7 +31,6 @@ class UsersListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *args, **kwargs):
         """
-
         :param object_list:
         :param kwargs:
         :return:
@@ -38,6 +38,19 @@ class UsersListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(*args, **kwargs)
         context['user_name'] = 'Пользователи'
         return context
+
+
+class UserSearchView(ListView):
+    model = User
+    template_name = 'users_app/search_results.html'
+
+    def get_queryset(self):  # new
+        query = self.request.GET.get('q')
+        object_list = User.objects.filter(Q(email__icontains=query) |
+                                          Q(first_name__icontains=query) |
+                                          Q(last_name__icontains=query))
+
+        return object_list
 
 
 # CreateView
@@ -56,12 +69,9 @@ class UserCreateView(LoginRequiredMixin, CreateView):
 
 
 # DetailView
-class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'users_app/user.html'
-
-    def test_func(self):
-        return self.request.user.is_superuser
 
 
 # UpdateView

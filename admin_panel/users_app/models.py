@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from companies_app.models import Company
@@ -44,6 +44,7 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     avatar = models.ImageField(null=True, blank=True, upload_to='user_avatars')
     companies = models.ManyToManyField(Company, blank=True, verbose_name='Компании')
+    groups = models.ManyToManyField(Group, blank=True, verbose_name='Группы')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -53,5 +54,6 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
-        ordering = ["last_name"]
+        # ordering = ["last_name"]
+        ordering = ["email"]
 

@@ -17,14 +17,32 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework import routers
+from companies_app.api_views import CompanyViewSet, DepartmentViewSet
+from users_app.api_views import UserViewSet
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'companies', CompanyViewSet)
+router.register(r'departments', DepartmentViewSet)
+router.register(r'users', UserViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('companies_app.urls', namespace='companies')),
+    path('', include('surveys_app.urls', namespace='surveys')),
+    path('companies/', include('companies_app.urls', namespace='companies')),
     path('users/', include('users_app.urls', namespace='users')),
-    path('surveys/', include('surveys_app.urls', namespace='surveys')),
-
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(router.urls)),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+
+    ] + urlpatterns
