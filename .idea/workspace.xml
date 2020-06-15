@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c753dba5-1b73-45da-aa94-b5bf2ab3d02f" name="Default Changelist" comment="" />
+    <list default="true" id="c753dba5-1b73-45da-aa94-b5bf2ab3d02f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/admin_panel/media/company_logo/tt_lylboPC.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/media/user_avatars/1481207357-289f65a5622c7e18c337c6df7150ce54_cJUMGuA.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/migrations/0002_answer_icon.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/migrations/0003_auto_20200615_1549.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/templates/quiz_app/detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/templates/quiz_app/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/templates/quiz_app/results.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/quiz_app/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_panel/surveys_app/migrations/0002_auto_20200615_1549.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/admin_panel/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/admin_panel/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/admin_panel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/admin_panel/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/companies_app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/companies_app/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/companies_app/templates/companies_app/companies.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/companies_app/templates/companies_app/companies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/reports_app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/reports_app/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/surveys_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/surveys_app/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/surveys_app/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/migrations/0002_auto_20200614_2328.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/migrations/0003_auto_20200614_2333.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/migrations/0004_auto_20200615_0110.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/surveys_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/templates/surveys_app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/surveys_app/templates/surveys_app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/templates/surveys_app/instruction.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/surveys_app/templates/surveys_app/instruction.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/surveys_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/surveys_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_panel/users_app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_panel/users_app/migrations/0001_initial.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,15 +46,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="v33d" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,28 +76,29 @@
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/admin_panel/surveys_app/templates/surveys_app" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/admin_panel/quiz_app/templates/quiz_app" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="survey_maker" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="survey_maker" />
+      </console-settings>
+    </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/admin_panel/surveys_app/templates/surveys_app" />
-      <recent name="$PROJECT_DIR$/admin_panel/surveys_app" />
-      <recent name="$PROJECT_DIR$/admin_panel/templates" />
-      <recent name="$PROJECT_DIR$/admin_panel/static/landing/js" />
-      <recent name="$PROJECT_DIR$/admin_panel/companies_app/management/commands" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/admin_panel/static/landing/js" />
       <recent name="$PROJECT_DIR$/admin_panel/media" />
     </key>
-  </component>
-  <component name="RunManager">
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.api_request" />
-      </list>
-    </recent_temporary>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin_panel/quiz_app/templates/quiz_app" />
+      <recent name="$PROJECT_DIR$/admin_panel/question_answer_app" />
+      <recent name="$PROJECT_DIR$/admin_panel/surveys_app/templates/surveys_app" />
+      <recent name="$PROJECT_DIR$/admin_panel/surveys_app" />
+      <recent name="$PROJECT_DIR$/admin_panel/templates" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -340,12 +377,18 @@
       <option name="project" value="LOCAL" />
       <updated>1592188370487</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="new commit">
+      <created>1592224337719</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1592224337719</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="v11 add department" />
     <MESSAGE value="v12 add department of THE COMPANY" />
     <MESSAGE value="v13 create survey" />
     <MESSAGE value="v14 redirect after survey create" />
@@ -370,7 +413,8 @@
     <MESSAGE value="v31d" />
     <MESSAGE value="v32d" />
     <MESSAGE value="v33" />
-    <option name="LAST_COMMIT_MESSAGE" value="v33" />
+    <MESSAGE value="new commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="new commit" />
   </component>
   <component name="WindowStateProjectService">
     <state x="259" y="222" key="#Inspections" timestamp="1589411774920">
@@ -381,10 +425,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="568" y="113" width="957" height="553" key="#Notifications/0.23.1680.1027@0.23.1680.1027" timestamp="1592223932245" />
-    <state x="419" y="112" key="CommitChangelistDialog2" timestamp="1592188370332">
+    <state x="419" y="112" key="CommitChangelistDialog2" timestamp="1592224337632">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="419" y="112" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1592188370332" />
+    <state x="419" y="112" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1592224337632" />
     <state x="419" y="112" key="CommitChangelistDialog2/1680.23.1116.733/0.23.1680.1027@0.23.1680.1027" timestamp="1591048338023" />
     <state width="1659" height="280" key="GridCell.Tab.0.bottom" timestamp="1591981329997">
       <screen x="0" y="23" width="1680" height="1027" />
@@ -406,10 +450,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="499" y="246" key="RollbackChangesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1591921328593" />
-    <state x="212" y="219" key="SettingsEditor" timestamp="1592223993885">
+    <state x="212" y="219" key="SettingsEditor" timestamp="1592229936276">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="212" y="219" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1592223993885" />
+    <state x="212" y="219" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1592229936276" />
     <state x="442" y="276" key="Vcs.Push.Dialog.v2" timestamp="1592188387233">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -419,10 +463,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="105" y="123" width="1392" height="827" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1589763442777" />
-    <state x="511" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592223956076">
+    <state x="511" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592224346166">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="511" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1592223956076" />
+    <state x="511" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1592224346166" />
     <state x="397" y="169" width="598" height="735" key="find.popup" timestamp="1590960840261">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>

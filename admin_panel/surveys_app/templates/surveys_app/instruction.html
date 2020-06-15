@@ -80,7 +80,17 @@
                             </li>
                             <li>
                                 <a href="{% url 'surveys:pages' survey_id=survey.id %}">
-                                    Демо
+                                    Демо 1
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'surveys:pages_d' pk=survey.pages_set.first.id %}">
+                                    Демо 2
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'surveys:questions' survey_id=survey.id %}">
+                                    Демо 3
                                 </a>
                             </li>
 
@@ -122,16 +132,9 @@
                         {{ survey.info_text }} (id={{ survey.id }})
                     </blockquote>
 
-<!--                    <div>-->
-<!--                        <a href="{% url 'surveys:pages_d' pk=survey.pages_set.first.id %}"-->
-<!--                           class="btn btn-primary mr-2 mb-2">-->
-<!--                            Далее-->
-<!--                        </a>-->
-<!--                        (pk= {{survey.pages_set.first.id }})-->
-<!--                    </div>-->
 
                     <div>
-                        <a href="{% url 'surveys:questions' survey_id=survey.id %}"
+                        <a href="{% url 'quiz:quiz/1' %}"
                            class="btn btn-primary mr-2 mb-2">
                             Далее
                         </a>

@@ -4,25 +4,28 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Survey, Pages, Question, Answer, Response
+from .models import Survey, Page, Question, Answer, Response
 from .forms import StepOneForm, StepTwoForm, StepThreeForm, ContactForm
 from .forms import PageForm, QuestionForm, AnswerForm, ResponseFormDemo, ResponseForm, SurveyCode
 from formtools.wizard.views import SessionWizardView
+
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 
 def main_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data['name']
+            # name = form.cleaned_data['name']
             # last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
+            # subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
 
             send_mail(
                 'Contact message',
-                f'Ваш сообщение "{subject}" принято',
+                f'Ваш сообщение "{message}" принято',
                 'id2k1149@gmail.com',
                 [email],
                 fail_silently=True,
@@ -37,11 +40,11 @@ def main_view(request):
 
 # удаление страницы - работает
 class PageDeleteView(LoginRequiredMixin, DeleteView):
-    model = Pages
+    model = Page
     success_url = reverse_lazy('')
 
     def post(self, request, *args, **kwargs):
-        self.survey_id = Pages.objects.get(id=kwargs['pk']).survey.id
+        self.survey_id = Page.objects.get(id=kwargs['pk']).survey.id
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -105,7 +108,7 @@ class SurveyDetailView(LoginRequiredMixin, DetailView):
 
 # добавление пустой страницы - работает
 class AddPageCreateView(LoginRequiredMixin, CreateView):
-    model = Pages
+    model = Page
     template_name = 'surveys_app/survey.html'
     success_url = '/'
     form_class = PageForm
@@ -124,18 +127,18 @@ class AddPageCreateView(LoginRequiredMixin, CreateView):
 
 
 class PageDetailView(LoginRequiredMixin, DetailView):
-    model = Pages
+    model = Page
     template_name = 'surveys_app/page.html'
 
 
 class PageUpdateView(LoginRequiredMixin, UpdateView):
-    model = Pages
+    model = Page
     template_name = 'surveys_app/upd_page.html'
     fields = ('page_name', 'page_help',)
     success_url = reverse_lazy('')
 
     def post(self, request, *args, **kwargs):
-        self.survey_id = Pages.objects.get(id=kwargs['pk']).survey.id
+        self.survey_id = Page.objects.get(id=kwargs['pk']).survey.id
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -218,7 +221,7 @@ class ByeUpdateView(LoginRequiredMixin,  UpdateView):
 
 
 class PageQuestionDetailView(LoginRequiredMixin, DetailView):
-    model = Pages
+    model = Page
     template_name = 'surveys_app/add_question.html'
 
     def get_context_data(self, **kwargs):
@@ -239,7 +242,7 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        page = get_object_or_404(Pages, pk=self.page_pk)
+        page = get_object_or_404(Page, pk=self.page_pk)
         form.instance.page = page
         return super().form_valid(form)
 
@@ -322,7 +325,7 @@ class StartSurveyCreateView(CreateView):
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        page = get_object_or_404(Pages, pk=self.page_pk)
+        page = get_object_or_404(Page, pk=self.page_pk)
         survey = get_object_or_404(Survey, pk=page.survey.id)
         form.instance.survey = survey
         return super().form_valid(form)
@@ -338,7 +341,7 @@ class SurveySeeYouLater(DetailView):
 
 # демо
 class SurveyPagesListViewDemo(ListView):
-    model = Pages
+    model = Page
     template_name = 'surveys_app/pages.html'
     paginate_by = 1
 
@@ -386,7 +389,7 @@ class SurveyResponsesCreateView(CreateView):
 
 # для пятницы шаг 1
 class PageResponseDetailView(DetailView):
-    model = Pages
+    model = Page
     template_name = 'surveys_app/pages_d.html'
 
     def get_context_data(self, **kwargs):
@@ -411,7 +414,7 @@ class ResponseCreateView(CreateView):
         question = get_object_or_404(Question, pk=self.question_pk)
         print("question= ", question, "page_pk= ", question.page.id)
         form.instance.question = question
-        page = get_object_or_404(Pages, pk=question.page.id)
+        page = get_object_or_404(Page, pk=question.page.id)
         print("page = ", page)
         survey = get_object_or_404(Survey, pk=page.survey.id)
         form.instance.survey = survey
@@ -440,6 +443,7 @@ class SurveyQuestionsListView(ListView):
 
 
 # # для  шаг 2
+@method_decorator(csrf_exempt, name='dispatch')
 class ResponseCreateView2(CreateView):
     model = Response
     template_name = 'surveys_app/pages_d2.html'
@@ -455,7 +459,7 @@ class ResponseCreateView2(CreateView):
         question = get_object_or_404(Question, pk=self.question_pk)
         print("question= ", question, "page_pk= ", question.page.id)
         form.instance.question = question
-        page = get_object_or_404(Pages, pk=question.page.id)
+        page = get_object_or_404(Page, pk=question.page.id)
         print("page = ", page)
         survey = get_object_or_404(Survey, pk=page.survey.id)
         form.instance.survey = survey
@@ -463,7 +467,7 @@ class ResponseCreateView2(CreateView):
 
     def get_success_url(self):
         question = get_object_or_404(Question, pk=self.question_pk)
-        page = get_object_or_404(Pages, pk=question.page.id)
+        page = get_object_or_404(Page, pk=question.page.id)
         survey = get_object_or_404(Survey, pk=page.survey.id)
         return reverse('surveys:see_you_later', kwargs={'pk': survey.id})
 

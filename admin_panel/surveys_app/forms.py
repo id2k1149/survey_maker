@@ -1,7 +1,7 @@
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Survey, Pages, Question, Answer, Response
+from .models import Survey, Page, Question, Answer, Response
 
 
 class ContactForm(forms.Form):
@@ -32,7 +32,7 @@ class StepThreeForm(forms.ModelForm):
 
 class PageForm(forms.ModelForm):
     class Meta:
-        model = Pages
+        model = Page
         fields = []
 
 

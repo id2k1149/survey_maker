@@ -53,14 +53,14 @@ class Survey(models.Model):
     #     return reverse('surveys:welcome', kwargs={'slug': self.slug})
 
 
-class Pages(models.Model):
+class Page(models.Model):
     number = models.SmallIntegerField(null=True, blank=True)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
     page_name = models.CharField(max_length=32,  blank=True)
     page_help = models.CharField(max_length=128, blank=True)
 
     def page_number(self):
-        pages = Pages.objects.filter(survey=self.survey)
+        pages = Page.objects.filter(survey=self.survey)
         i = 1
         for page in pages:
             page.number = i
@@ -87,7 +87,7 @@ class Question(MPTTModel):
     question_title = models.CharField(max_length=128, null=True, blank=True)
     question_help = models.CharField(max_length=128, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to='question_image')
-    page = models.ForeignKey(Pages, on_delete=models.CASCADE, blank=True)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, blank=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     class Meta:
@@ -96,7 +96,7 @@ class Question(MPTTModel):
 
 
 class Answer(models.Model):
-    icon = IconField()
+    icon = IconField(blank=True, null=True)
     question = models.ManyToManyField(Question, blank=True)
     name = models.CharField(max_length=64)
     active_answer = models.BooleanField(default=False)

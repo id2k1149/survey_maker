@@ -33,6 +33,7 @@ urlpatterns = [
     path('', include('surveys_app.urls', namespace='surveys')),
     path('companies/', include('companies_app.urls', namespace='companies')),
     path('users/', include('users_app.urls', namespace='users')),
+    path('quiz/', include('quiz_app.urls', namespace='quiz')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
 ]
