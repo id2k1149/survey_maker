@@ -298,7 +298,7 @@ class SurveyWelcome(DetailView):
     template_name = 'surveys_app/welcome.html'
 
 
-# шаг 1
+# шаг 1 (хотел сохранить рандом-код)
 class SurveyInstruction(DetailView):
     model = Survey
     template_name = 'surveys_app/instruction.html'
@@ -309,7 +309,7 @@ class SurveyInstruction(DetailView):
         return context
 
 
-# шаг 2
+# шаг 2 (хотел сохранить рандом-код)
 class StartSurveyCreateView(CreateView):
     model = Response
     template_name = 'surveys_app/pages_d3.html'
@@ -323,10 +323,8 @@ class StartSurveyCreateView(CreateView):
 
     def form_valid(self, form):
         page = get_object_or_404(Pages, pk=self.page_pk)
-        # print("question= ", question, "page_pk= ", question.page.id)
         survey = get_object_or_404(Survey, pk=page.survey.id)
         form.instance.survey = survey
-        form.instance.code = random_string()
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -386,7 +384,7 @@ class SurveyResponsesCreateView(CreateView):
         return super().form_valid(form)
 
 
-# для пятницы
+# для пятницы шаг 1
 class PageResponseDetailView(DetailView):
     model = Pages
     template_name = 'surveys_app/pages_d.html'
@@ -397,7 +395,7 @@ class PageResponseDetailView(DetailView):
         return context
 
 
-# для пятницы
+# для пятницы шаг 2
 class ResponseCreateView(CreateView):
     model = Response
     template_name = 'surveys_app/pages_d2.html'
@@ -421,3 +419,52 @@ class ResponseCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('surveys:pages_d', kwargs={'pk': self.question_pk})
+
+
+# демо 2 шаг1
+class SurveyQuestionsListView(ListView):
+    model = Question
+    template_name = 'surveys_app/questions.html'
+    paginate_by = 1
+
+    def get_queryset(self):
+        survey_id = self.kwargs['survey_id']
+        qs = super().get_queryset()
+        questions = qs.filter(page__survey=survey_id)
+        return questions
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ResponseForm()
+        return context
+
+
+# # для  шаг 2
+class ResponseCreateView2(CreateView):
+    model = Response
+    template_name = 'surveys_app/pages_d2.html'
+    success_url = reverse_lazy('/')
+    form_class = ResponseForm
+
+    def post(self, request, *args, **kwargs):
+        self.question_pk = kwargs['pk']
+        print("self.question_pk from last page = ", self.question_pk)
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        question = get_object_or_404(Question, pk=self.question_pk)
+        print("question= ", question, "page_pk= ", question.page.id)
+        form.instance.question = question
+        page = get_object_or_404(Pages, pk=question.page.id)
+        print("page = ", page)
+        survey = get_object_or_404(Survey, pk=page.survey.id)
+        form.instance.survey = survey
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        question = get_object_or_404(Question, pk=self.question_pk)
+        page = get_object_or_404(Pages, pk=question.page.id)
+        survey = get_object_or_404(Survey, pk=page.survey.id)
+        return reverse('surveys:see_you_later', kwargs={'pk': survey.id})
+
+

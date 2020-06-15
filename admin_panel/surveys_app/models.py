@@ -23,17 +23,17 @@ class Language(models.Model):
         return self.name
 
 
-class Survey(MPTTModel):
+class Survey(models.Model):
     name = models.CharField(max_length=64)
     is_draft = models.BooleanField(default=True)
     is_active = models.BooleanField(default=False)
-    slug = models.SlugField(null=True)
+    slug = models.SlugField(null=True, blank=True)
     company = models.ForeignKey(Company, null=True, blank=True, on_delete=models.CASCADE)
     hello_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='Приветствие')
     hello_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
     info_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='Инструкция')
     info_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
-    bye_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='Завешение')
+    bye_title = models.CharField(max_length=32, null=True, blank=True, verbose_name='Завершение')
     bye_text = models.TextField(max_length=256, null=True, blank=True, verbose_name='ТЕКСТ')
     created_day = models.DateField(default=now)
     start_date = models.DateField(null=True, blank=True)
@@ -41,7 +41,6 @@ class Survey(MPTTModel):
     contacts = models.TextField(max_length=128, null=True, blank=True)
     answers_counter = models.PositiveIntegerField(null=True, blank=True)
     language = models.ManyToManyField(Language, blank=True,  default='1')
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     class Meta:
         verbose_name = 'Опрос'
@@ -117,7 +116,7 @@ class UserCode(models.Model):
 
 
 class Response(models.Model):
-    code = models.ForeignKey(UserCode, on_delete=models.CASCADE, blank=True,)
+    code = models.ForeignKey(UserCode, on_delete=models.CASCADE, null=True, blank=True,)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, blank=True,)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True,)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True, blank=True,)

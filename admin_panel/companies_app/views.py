@@ -103,3 +103,4 @@ class CompanyDelete(LoginRequiredMixin, DeleteView):
     model = Company
     success_url = reverse_lazy('companies:companies')
     template_name = 'companies_app/confirm_delete.html'
+
