@@ -74,13 +74,31 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+     {% for item in object_list %}
+    <a href="{% url 'users:user' pk=item.pk %}" style="text-decoration: none;">
+     <div class="row col-md-12">
+        <div class="col-12">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters ">
+                        <div class="col-md-1 d-flex ">
+                            {% if item.avatar %}
+                            <img src="{{item.avatar.url}}" width="40">
+                            {% else %}
+                            <i class="fas fa-user fa-2x text-gray-300"> </i>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-5 font-weight-bold text-primary text-uppercase mb-1">{{ item.email }}</div>
+                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.first_name }}</div>
+                        <div class="col-md-1 d-flex" style="color:black;" >{{ item.last_name }}</div>
+                    </div>
 
-
-      {{ object_list }}
-    <!-- Content Row -->
-
-
-
+                </div>
+            </div>
+        </div>
+    </div><br>
+         </a>
+    {% endfor  %}
 </div>
 <!-- /.container-fluid -->
 

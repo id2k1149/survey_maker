@@ -60,7 +60,8 @@
             <div class="row align-items-center">
 
                 <div class="col-6 col-md-3 col-xl-4  d-block">
-                    <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">{{ survey.name }}<span
+                    <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">{{ survey.name }}
+                        <span
                             class="text-primary">.</span> </a></h1>
                 </div>
 
@@ -80,7 +81,12 @@
                             </li>
                             <li>
                                 <a href="{% url 'surveys:pages' survey_id=survey.id %}">
-                                    Демо
+                                    Демо 1
+                                </a>
+                            </li>
+                             <li>
+                                <a href="{% url 'surveys:pages_d' pk=survey.pages_set.first.id %}">
+                                    Демо 2
                                 </a>
                             </li>
 
@@ -116,26 +122,21 @@
 
                 <div class="author-box" data-aos="fade-left">
                     <div class="d-flex mb-4">
-
+                        <h6> короткая инструкция </h6>
+                        <span
+                            class="text-primary"> - </span>
                     </div>
                     <blockquote>
-                        {{ survey.info_text }} (id={{ survey.id }})
+
+                        {{ survey.info_text }}
                     </blockquote>
 
-<!--                    <div>-->
-<!--                        <a href="{% url 'surveys:pages_d' pk=survey.pages_set.first.id %}"-->
-<!--                           class="btn btn-primary mr-2 mb-2">-->
-<!--                            Далее-->
-<!--                        </a>-->
-<!--                        (pk= {{survey.pages_set.first.id }})-->
-<!--                    </div>-->
 
                     <div>
                         <a href="{% url 'surveys:questions' survey_id=survey.id %}"
                            class="btn btn-primary mr-2 mb-2">
                             Далее
                         </a>
-                        (sur pk= {{survey.id }})
                     </div>
 
 
@@ -151,7 +152,7 @@
 <!--                            </form>-->
 <!--                        </div>-->
 
-                     (page pk= {{survey.pages_set.first.id }})
+
                 </div>
             </div>
         </div>

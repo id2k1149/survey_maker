@@ -65,7 +65,7 @@
                     <h1 class="mb-0 site-logo">
                         {% for item in object_list %}
 
-                        {{ item.page.survey.name}} ({{ item.page.survey.id}})
+                        {{ item.page.survey.name}}
 
                         {% endfor %}
                         <span class="text-primary">.</span>
@@ -118,7 +118,7 @@
 
                             {% with all_questions=object_list %}
                             {% for each in all_questions %}
-                            <h4>{{ each.question_title }} (question_id_#{{ each.id }})</h4>
+                            <h4>{{ each.question_title }} </h4>
                             <hr>
                             <form method="post" action="{% url 'surveys:see_you_later' pk=each.page.survey.id %}">
                                 <div class="row col-md-12">
